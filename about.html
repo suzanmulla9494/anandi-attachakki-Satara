@@ -2,163 +2,812 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>About Us - Anandi Atta Chakki</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Anandi Atta Chakki – Satara's Trusted Flour Mill Since 2007</title>
+  <meta name="description" content="Learn the story of Anandi Atta Chakki — Satara's trusted flour mill showroom since 2007. Meet the team, our values, and our commitment to quality." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fffef3;
-      color: #333;
-    }
+  /* ============================================================
+     TOKENS
+  ============================================================ */
+  :root {
+    --gold:      #F59E0B;
+    --gold-lt:   #FDE68A;
+    --gold-dk:   #D97706;
+    --saffron:   #EF6C00;
+    --cream:     #FEFCE8;
+    --cream-2:   #FFFBF0;
+    --cream-3:   #FFF8E7;
+    --dark:      #0A0500;
+    --dark-2:    #160C02;
+    --dark-3:    #271505;
+    --warm-dark: #1C1007;
+    --text:      #292017;
+    --text-md:   #4A3220;
+    --text-lt:   #7C5A42;
+    --white:     #FFFFFF;
+    --ease:      cubic-bezier(0.16,1,0.3,1);
+  }
 
-    header {
-      background: #f9a825;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+  /* ============================================================
+     BASE
+  ============================================================ */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Poppins', sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  a   { text-decoration:none; color:inherit; }
+  img { display:block; max-width:100%; }
+  ul  { list-style:none; }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
+  /* ============================================================
+     SCROLL PROGRESS
+  ============================================================ */
+  #spb {
+    position:fixed; top:0; left:0;
+    height:3px; width:0%;
+    background:linear-gradient(90deg, var(--gold-lt), var(--gold), var(--saffron), var(--gold), var(--gold-lt));
+    background-size:300% 100%;
+    animation:pbFlow 3s linear infinite;
+    z-index:9999; transition:width .1s linear;
+    box-shadow:0 0 10px rgba(245,158,11,0.55);
+  }
+  @keyframes pbFlow { 0%{background-position:0% 0} 100%{background-position:300% 0} }
 
-    header p {
-      margin: 5px 0;
-      font-size: 1.1em;
-    }
+  /* ============================================================
+     KEYFRAMES
+  ============================================================ */
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-22px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(30px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
 
-    nav {
-      margin-top: 10px;
+  /* ============================================================
+     NAVBAR
+  ============================================================ */
+  .nav {
+    position:fixed; top:0; left:0; right:0;
+    z-index:1000; transition:all 0.4s var(--ease);
+  }
+  .nav-bg {
+    position:absolute; inset:0;
+    background:rgba(10,5,0,0.72);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid rgba(245,158,11,0.2);
+    transition:all 0.4s var(--ease);
+  }
+  .nav.scrolled .nav-bg {
+    background:rgba(10,5,0,0.96);
+    box-shadow:0 4px 40px rgba(0,0,0,0.5);
+  }
+  .nav-inner {
+    position:relative; z-index:1;
+    max-width:1200px; margin:0 auto;
+    height:74px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px;
+  }
+  .nav-brand { display:flex; align-items:center; gap:13px; }
+  .nav-logo {
+    width:52px; height:52px; object-fit:cover;
+    border-radius:12px; border:2px solid var(--gold);
+    box-shadow:0 0 16px rgba(245,158,11,0.38);
+  }
+  .brand-t1 {
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-size:1.1rem; font-weight:700;
+    color:var(--gold); line-height:1.2;
+  }
+  .brand-t2 {
+    display:block; font-size:0.64rem;
+    color:rgba(255,255,255,0.44); letter-spacing:0.5px;
+  }
+  .nav-menu { display:flex; align-items:center; gap:2px; }
+  .nav-menu a {
+    position:relative;
+    padding:9px 16px; border-radius:9px;
+    font-size:0.875rem; font-weight:500;
+    color:rgba(255,255,255,0.78);
+    transition:all 0.3s var(--ease);
+  }
+  .nav-menu a::after {
+    content:'';
+    position:absolute; bottom:5px; left:50%;
+    transform:translateX(-50%) scaleX(0);
+    width:50%; height:2px;
+    background:linear-gradient(90deg,var(--gold),var(--saffron));
+    border-radius:2px; transition:transform 0.3s var(--ease);
+  }
+  .nav-menu a:hover,
+  .nav-menu a.active { color:var(--gold); background:rgba(245,158,11,0.09); }
+  .nav-menu a:hover::after,
+  .nav-menu a.active::after { transform:translateX(-50%) scaleX(1); }
+  .nav-cta-btn {
+    margin-left:6px !important;
+    padding:10px 24px !important; border-radius:50px !important;
+    background:linear-gradient(135deg,var(--gold),var(--saffron)) !important;
+    color:var(--white) !important; font-weight:700 !important;
+    box-shadow:0 4px 20px rgba(239,108,0,0.42) !important;
+  }
+  .nav-cta-btn:hover { transform:translateY(-2px) !important; box-shadow:0 10px 30px rgba(239,108,0,0.6) !important; }
+  .nav-cta-btn::after { display:none !important; }
+  .burger {
+    display:none; flex-direction:column; gap:5px;
+    cursor:pointer; padding:6px; background:none; border:none;
+  }
+  .burger span {
+    display:block; width:24px; height:2px;
+    background:var(--gold); border-radius:2px;
+    transition:all 0.35s var(--ease);
+  }
+  @media(max-width:860px){
+    .burger { display:flex; }
+    .nav-menu {
+      display:none; position:absolute;
+      top:100%; left:0; right:0;
+      flex-direction:column; align-items:stretch;
+      background:rgba(10,5,0,0.98);
+      padding:14px 20px 20px; gap:4px;
+      border-top:1px solid rgba(245,158,11,0.15);
     }
+    .nav-menu.open { display:flex; }
+    .nav-menu a { text-align:center; }
+  }
 
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
+  /* ============================================================
+     PAGE HERO
+  ============================================================ */
+  .page-hero {
+    position:relative;
+    padding:148px 24px 108px;
+    text-align:center;
+    background:linear-gradient(160deg, var(--dark) 0%, var(--dark-2) 55%, var(--dark-3) 100%);
+    overflow:hidden;
+  }
+  .page-hero::before {
+    content:'';
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:750px; height:750px;
+    background:radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 65%);
+    pointer-events:none;
+    animation:heroPulse 4s ease-in-out infinite;
+  }
+  @keyframes heroPulse {
+    0%,100%{ transform:translate(-50%,-50%) scale(1); }
+    50%    { transform:translate(-50%,-50%) scale(1.1); }
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(245,158,11,0.1);
+    border:1px solid rgba(245,158,11,0.38);
+    backdrop-filter:blur(10px);
+    color:var(--gold-lt);
+    font-size:0.72rem; font-weight:700;
+    padding:8px 22px; border-radius:100px;
+    letter-spacing:2.5px; text-transform:uppercase;
+    margin-bottom:28px;
+    position:relative; z-index:1;
+    animation:fadeDown 0.85s var(--ease) both;
+  }
+  .badge-dot {
+    width:8px; height:8px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 8px var(--gold);
+    animation:dotBlink 1.6s ease infinite;
+  }
+  @keyframes dotBlink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  .page-hero h1 {
+    position:relative; z-index:1;
+    font-family:'Playfair Display', serif;
+    font-size:clamp(2.4rem, 6vw, 4rem);
+    font-weight:800; color:var(--white);
+    line-height:1.15; margin-bottom:20px;
+    animation:fadeUp 0.95s var(--ease) 0.15s both;
+  }
+  .page-hero h1 .gold-text {
+    background:linear-gradient(120deg, var(--gold-lt) 0%, var(--gold) 40%, var(--saffron) 80%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .page-hero p {
+    position:relative; z-index:1;
+    font-size:clamp(0.97rem, 2.2vw, 1.12rem);
+    color:rgba(255,255,255,0.7);
+    max-width:600px; margin:0 auto;
+    line-height:1.82;
+    animation:fadeUp 0.95s var(--ease) 0.3s both;
+  }
+  .hero-wave {
+    position:absolute; bottom:-2px; left:0; right:0;
+    z-index:1;
+  }
 
-    main {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+  /* ============================================================
+     REVEAL ANIMATION
+  ============================================================ */
+  .reveal {
+    opacity:0; transform:translateY(44px);
+    transition:opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.in { opacity:1; transform:translateY(0); }
+  .d1 { transition-delay:.12s !important; }
+  .d2 { transition-delay:.22s !important; }
+  .d3 { transition-delay:.34s !important; }
 
-    h2 {
-      color: #d84315;
-      margin-bottom: 20px;
-    }
+  /* ============================================================
+     SECTION COMMONS
+  ============================================================ */
+  .sec { padding:92px 24px; }
+  .container { max-width:1140px; margin:0 auto; }
+  .sec-head { text-align:center; margin-bottom:60px; }
 
-    section {
-      margin-bottom: 40px;
-    }
+  .eyebrow {
+    display:inline-block;
+    font-size:0.68rem; font-weight:800;
+    letter-spacing:3.5px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:14px;
+  }
+  .eyebrow.light { color:var(--gold-lt); }
 
-    p {
-      line-height: 1.6;
-    }
+  .sec-h2 {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(2rem, 4.5vw, 2.9rem);
+    font-weight:700; line-height:1.22;
+    color:var(--dark-2);
+  }
+  .sec-h2 em   { font-style:normal; color:var(--saffron); }
+  .sec-h2.light{ color:var(--white); }
 
-    ul {
-      padding-left: 20px;
-    }
+  .sec-p {
+    font-size:0.97rem; color:var(--text-lt);
+    max-width:580px; margin:14px auto 0; line-height:1.82;
+  }
+  .sec-p.light { color:rgba(255,255,255,0.62); }
 
-    ul li {
-      margin-bottom: 10px;
-    }
+  /* ============================================================
+     STORY SECTION
+  ============================================================ */
+  .story-sec { background:var(--cream-2); }
+  .story-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:72px; align-items:center;
+    max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:800px){ .story-grid{grid-template-columns:1fr; gap:44px;} }
 
-    footer {
-      background: #fbc02d;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.95em;
-      color: #333;
-    }
+  .story-label {
+    font-size:0.68rem; font-weight:800;
+    letter-spacing:3.5px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:14px; display:block;
+  }
+  .story-h2 {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(1.85rem, 3.8vw, 2.6rem);
+    font-weight:700; color:var(--dark-2);
+    line-height:1.24; margin-bottom:22px;
+  }
+  .story-h2 em { font-style:normal; color:var(--saffron); }
+
+  .story-body p {
+    font-size:0.95rem; color:var(--text-md);
+    line-height:1.85; margin-bottom:16px;
+  }
+  .story-callout {
+    display:flex; align-items:center; gap:16px;
+    background:linear-gradient(135deg, rgba(245,158,11,0.1), rgba(239,108,0,0.06));
+    border-left:4px solid var(--gold);
+    border-radius:0 14px 14px 0;
+    padding:18px 22px; margin-top:26px;
+  }
+  .story-callout .ci { font-size:1.6rem; flex-shrink:0; }
+  .story-callout p {
+    margin:0; font-size:0.92rem;
+    font-weight:600; color:var(--dark-2); line-height:1.55;
+  }
+
+  .story-img-wrap { position:relative; }
+  .story-img-main {
+    width:100%; height:460px;
+    object-fit:cover; border-radius:22px;
+    box-shadow:0 28px 72px rgba(0,0,0,0.22);
+  }
+  .story-badge {
+    position:absolute; bottom:-24px; left:-24px;
+    background:linear-gradient(135deg, var(--gold), var(--saffron));
+    border-radius:18px; padding:22px 28px;
+    text-align:center; color:var(--white);
+    box-shadow:0 14px 40px rgba(239,108,0,0.42);
+  }
+  .story-badge strong {
+    display:block;
+    font-family:'Playfair Display', serif;
+    font-size:2.6rem; line-height:1;
+  }
+  .story-badge span { font-size:0.76rem; opacity:0.9; letter-spacing:0.3px; }
+
+  /* ============================================================
+     VALUES SECTION
+  ============================================================ */
+  .values-sec { background:var(--cream-3); }
+  .val-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px; max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:900px){ .val-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:540px){ .val-grid{grid-template-columns:1fr;} }
+
+  .val-card {
+    background:var(--white);
+    border-radius:20px; padding:34px 28px;
+    text-align:center;
+    box-shadow:0 3px 18px rgba(0,0,0,0.06);
+    border:1px solid rgba(245,158,11,0.1);
+    transition:all 0.38s var(--ease);
+    position:relative; overflow:hidden;
+    cursor:default;
+  }
+  .val-card::before {
+    content:''; position:absolute; top:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--gold), var(--saffron));
+    transform:scaleX(0); transform-origin:left;
+    transition:transform 0.42s var(--ease);
+  }
+  .val-card:hover { transform:translateY(-10px); box-shadow:0 22px 52px rgba(245,158,11,0.18); border-color:rgba(245,158,11,0.28); }
+  .val-card:hover::before { transform:scaleX(1); }
+  .val-icon-wrap {
+    width:64px; height:64px; border-radius:18px;
+    background:linear-gradient(135deg, rgba(245,158,11,0.12), rgba(239,108,0,0.07));
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:2.2rem; margin-bottom:20px;
+    transition:all 0.38s var(--ease);
+  }
+  .val-card:hover .val-icon-wrap {
+    background:linear-gradient(135deg, var(--gold), var(--saffron));
+    box-shadow:0 10px 28px rgba(245,158,11,0.42);
+    transform:rotate(-8deg) scale(1.1);
+  }
+  .val-card h3 {
+    font-size:1.05rem; font-weight:700;
+    color:var(--dark-2); margin-bottom:10px;
+  }
+  .val-card p {
+    font-size:0.87rem; color:var(--text-lt); line-height:1.74;
+  }
+
+  /* ============================================================
+     SHOWROOM VIDEO SECTION
+  ============================================================ */
+  .showroom-sec {
+    background:linear-gradient(180deg, var(--dark) 0%, #020100 100%);
+    position:relative; overflow:hidden;
+  }
+  .showroom-sec::before,
+  .showroom-sec::after {
+    content:''; position:absolute; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(245,158,11,0.45), transparent);
+  }
+  .showroom-sec::before { top:0; }
+  .showroom-sec::after  { bottom:0; }
+  .vid-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:28px; max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:680px){ .vid-grid{grid-template-columns:1fr;} }
+  .vid-wrap {
+    border-radius:18px; overflow:hidden;
+    box-shadow:0 16px 48px rgba(0,0,0,0.55);
+    border:1px solid rgba(245,158,11,0.14);
+    transition:all 0.38s var(--ease);
+    background:#000;
+  }
+  .vid-wrap:hover { transform:translateY(-8px); box-shadow:0 28px 70px rgba(245,158,11,0.15); }
+  .vid-wrap video { width:100%; display:block; }
+
+  /* ============================================================
+     QUOTE SECTION
+  ============================================================ */
+  .quote-sec { background:var(--cream-2); }
+  .quote-card {
+    max-width:880px; margin:0 auto;
+    background:linear-gradient(135deg, var(--dark-2) 0%, var(--dark-3) 100%);
+    border-radius:26px; padding:60px 52px;
+    text-align:center; position:relative; overflow:hidden;
+    border:1px solid rgba(245,158,11,0.22);
+    box-shadow:0 28px 72px rgba(0,0,0,0.28);
+  }
+  @media(max-width:600px){ .quote-card{ padding:40px 24px; } }
+  .quote-card::before {
+    content:'"';
+    position:absolute; top:-20px; left:28px;
+    font-size:16rem;
+    font-family:'Playfair Display',serif;
+    color:rgba(245,158,11,0.05);
+    line-height:1; pointer-events:none;
+  }
+  .quote-card blockquote {
+    position:relative;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.1rem, 2.8vw, 1.44rem);
+    color:var(--gold-lt); font-style:italic;
+    line-height:1.85; margin-bottom:30px;
+  }
+  .quote-line {
+    width:64px; height:3px;
+    background:linear-gradient(90deg, var(--gold), var(--saffron));
+    border-radius:2px; margin:0 auto 22px;
+  }
+  .quote-cite {
+    color:rgba(255,255,255,0.5);
+    font-size:0.9rem; font-style:normal;
+  }
+  .quote-cite strong { color:var(--gold); }
+
+  /* ============================================================
+     CTA STRIP
+  ============================================================ */
+  .cta-strip {
+    background:linear-gradient(135deg, var(--dark) 0%, var(--dark-3) 100%);
+    padding:80px 24px; text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-strip::before {
+    content:''; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:800px; height:800px;
+    background:radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%);
+    pointer-events:none;
+  }
+  .cta-strip h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,3.2rem);
+    color:var(--white); margin-bottom:16px;
+    position:relative; font-weight:800;
+  }
+  .cta-strip h2 span {
+    background:linear-gradient(135deg,var(--gold),var(--saffron));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .cta-strip p { font-size:1.02rem; color:rgba(255,255,255,0.62); max-width:500px; margin:0 auto 34px; line-height:1.8; position:relative; }
+  .cta-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; position:relative; }
+  .btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 32px; border-radius:50px;
+    font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:700;
+    border:none; cursor:pointer; transition:all 0.35s var(--ease);
+  }
+  .btn-gold {
+    background:linear-gradient(135deg,var(--gold),var(--saffron));
+    color:var(--white); box-shadow:0 6px 26px rgba(239,108,0,0.42);
+  }
+  .btn-gold:hover { transform:translateY(-3px); box-shadow:0 14px 38px rgba(239,108,0,0.65); }
+  .btn-ghost {
+    background:transparent; color:var(--white);
+    border:2px solid rgba(255,255,255,0.38);
+  }
+  .btn-ghost:hover { border-color:var(--gold); color:var(--gold-lt); background:rgba(245,158,11,0.08); transform:translateY(-3px); }
+  .btn-wa {
+    background:linear-gradient(135deg,#1DB954,#25D366);
+    color:var(--white); box-shadow:0 6px 26px rgba(37,211,102,0.4);
+  }
+  .btn-wa:hover { transform:translateY(-3px); box-shadow:0 14px 38px rgba(37,211,102,0.62); }
+
+  /* ============================================================
+     FOOTER
+  ============================================================ */
+  .footer {
+    background:#050200;
+    padding:64px 24px 30px;
+    border-top:1px solid rgba(245,158,11,0.14);
+  }
+  .foot-grid {
+    display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:44px; max-width:1180px; margin:0 auto;
+    padding-bottom:48px;
+    border-bottom:1px solid rgba(245,158,11,0.1);
+  }
+  @media(max-width:860px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:500px){ .foot-grid{grid-template-columns:1fr;} }
+  .foot-brand-row { display:flex; align-items:center; gap:13px; margin-bottom:16px; }
+  .foot-logo { width:52px; height:52px; object-fit:cover; border-radius:12px; border:2px solid rgba(245,158,11,0.4); }
+  .foot-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); }
+  .foot-about { font-size:0.85rem; color:rgba(255,255,255,0.5); line-height:1.78; margin-bottom:22px; }
+  .foot-social { display:flex; gap:10px; }
+  .foot-social a {
+    width:38px; height:38px; border-radius:50%;
+    background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.22);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.92rem; color:var(--gold); transition:all 0.3s var(--ease);
+  }
+  .foot-social a:hover { background:var(--gold); color:var(--dark); transform:translateY(-4px); }
+  .foot-h { font-size:0.7rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+  .foot-col ul li { margin-bottom:12px; }
+  .foot-col ul li a { font-size:0.85rem; color:rgba(255,255,255,0.5); transition:color 0.25s; }
+  .foot-col ul li a:hover { color:var(--gold); }
+  .foot-ci { display:flex; align-items:flex-start; gap:11px; margin-bottom:14px; }
+  .foot-ci .ic { font-size:1rem; margin-top:2px; flex-shrink:0; }
+  .foot-ci span { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.55; }
+  .foot-bottom { text-align:center; padding-top:30px; max-width:1180px; margin:0 auto; }
+  .foot-bottom p { font-size:0.8rem; color:rgba(255,255,255,0.27); }
+  .foot-bottom span { color:var(--gold); }
+
+  /* WhatsApp float */
+  .wa-float {
+    position:fixed; bottom:30px; right:30px;
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,#128C7E,#25D366);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem; text-decoration:none;
+    box-shadow:0 6px 28px rgba(37,211,102,0.55);
+    z-index:9998; transition:all 0.38s var(--ease);
+    animation:waFloat 2.8s ease-in-out infinite;
+  }
+  .wa-float:hover { transform:scale(1.15) rotate(-10deg); animation:none; }
+  @keyframes waFloat {
+    0%,100%{ transform:translateY(0); box-shadow:0 6px 28px rgba(37,211,102,0.55); }
+    50%    { transform:translateY(-5px); box-shadow:0 12px 48px rgba(37,211,102,0.8); }
+  }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Anandi Atta Chakki</h1>
-    <p>Fresh Chakki Atta in Satara — Hygienic • Affordable • Trusted since 2007</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="products.html">Products</a>
-      <a href="contact.html">Contact</a>
-       <a href="faq.html">FAQs</a>
-    </nav>
-  </header>
+<!-- ══ SCROLL PROGRESS ════════════════════════════════════ -->
+<div id="spb"></div>
 
-  <main>
-    <section>
-      <h2>About Anandi Atta Chakki</h2>
-      <p>
-       Anandi Atta Chakki is a trusted name in Satara for high-quality atta grinding machines
-        and fresh chakki atta services. Our mission is to provide hygienic, nutritious, and chemical-free flour to every household.
-      </p>
-    </section>
+<!-- ══ NAVBAR ═════════════════════════════════════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-bg"></div>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="logo1" alt="Anandi Atta Chakki" class="nav-logo" />
+      <div>
+        <span class="brand-t1">Anandi Atta Chakki</span>
+        <span class="brand-t2">Satara's Trusted Flour Mill · Since 2007</span>
+      </div>
+    </a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="faq.html">FAQs</a></li>
+      <li><a href="contact.html" class="nav-cta-btn">Contact Us</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-    <section>
-      <h2>Our Values</h2>
-      <ul>
-        <li>✅ 100% Clean, Fresh Grains</li>
-        <li>✅ Honest Dealings and Customer First Approach</li>
-        <li>✅ Reliable After-Sales Support</li>
-        <li>✅ Over 15+ Years of Local Trust</li>
-      </ul>
-    </section>
+<!-- ══ PAGE HERO ══════════════════════════════════════════ -->
+<section class="page-hero">
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Our Story &nbsp;·&nbsp; Since 2007
+    </div>
+    <h1>
+      The Heart Behind<br/>
+      <span class="gold-text">Every Roti</span>
+    </h1>
+    <p>For over 19 years, Anandi Atta Chakki has been Satara's most trusted name for pure, stone-ground flour and premium flour mill machines.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 68" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0 68 C480 0 960 0 1440 68 L1440 68 L0 68 Z" fill="#FEFCE8"/>
+  </svg>
+</section>
 
-    <section>
-      <h2>Meet the Visionary</h2>
-      <p>
-        “At Anandi Atta Chakki, we don’t just sell machines — we build relationships. Our goal is to serve customers with genuine products,
-        honest advice, and personal care.”<br><br>
-        <em>Dealer, Anandi Atta Chakki</em>
-      </p>
-    </section>
-  </main>
-<!-- Showroom Tour Videos -->
-<section id="showroom" style="padding: 30px;">
-  <h2>Showroom </h2>
-  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-    <video width="800" controls>
-      <source src="showroom1.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <video width="800" controls>
-      <source src="showroom2.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+<!-- ══ OUR STORY ══════════════════════════════════════════ -->
+<section class="sec story-sec">
+  <div class="story-grid">
+
+    <div class="story-body reveal">
+      <span class="story-label">Our Story</span>
+      <h2 class="story-h2">Grinding Goodness <em>Since 2007</em></h2>
+      <p>Anandi Atta Chakki was born from a simple belief — every family deserves fresh, pure, chemical-free flour. What began as a small chakki service in Satara has grown into a full-fledged showroom offering premium flour mill machines to homes and businesses across Maharashtra.</p>
+      <p>We don't just sell machines — we help people bring the tradition of fresh, home-ground atta back into their kitchens. Every machine is tested, every customer is guided personally, and every purchase comes with genuine after-sales care.</p>
+      <div class="story-callout">
+        <span class="ci">🏆</span>
+        <p>Serving 5,000+ happy customers across Satara, Karad, and beyond — since 2007.</p>
+      </div>
+    </div>
+
+    <div class="story-img-wrap reveal d2">
+      <img src="an87.jpg" alt="Anandi Atta Chakki Showroom" class="story-img-main" />
+      <div class="story-badge">
+        <strong>19+</strong>
+        <span>Years of Trust</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
-  <footer>
-    <p>&copy; 2025 Anandi Atta Chakki | Satara | Designed by Suzan M.</p>
-  </footer>
+<!-- ══ OUR VALUES ══════════════════════════════════════════ -->
+<section class="sec values-sec">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow reveal">What We Stand For</p>
+      <h2 class="sec-h2 reveal d1">Our <em>Core Values</em></h2>
+      <p class="sec-p reveal d2">The principles that drive everything we do — from sourcing grains to serving customers.</p>
+    </div>
+    <div class="val-grid">
+      <div class="val-card reveal">
+        <div class="val-icon-wrap">✅</div>
+        <h3>100% Clean &amp; Fresh Grains</h3>
+        <p>We use only the finest, cleanest grains — inspected before every grind. No shortcuts, no compromises, ever.</p>
+      </div>
+      <div class="val-card reveal d1">
+        <div class="val-icon-wrap">🤝</div>
+        <h3>Honest Dealings</h3>
+        <p>Transparent pricing, genuine products, and honest advice. We only recommend what's truly right for you.</p>
+      </div>
+      <div class="val-card reveal d2">
+        <div class="val-icon-wrap">🔧</div>
+        <h3>Reliable After-Sales</h3>
+        <p>Our relationship doesn't end at the sale. We provide complete support, service, and guidance after every purchase.</p>
+      </div>
+      <div class="val-card reveal d1">
+        <div class="val-icon-wrap">🏠</div>
+        <h3>Local &amp; Community First</h3>
+        <p>We are part of Satara's community. We prioritize local families and small businesses in everything we do.</p>
+      </div>
+      <div class="val-card reveal d2">
+        <div class="val-icon-wrap">⚙️</div>
+        <h3>Quality Machines</h3>
+        <p>Every machine we sell is rigorously tested and backed by up to 10 years of manufacturer warranty.</p>
+      </div>
+      <div class="val-card reveal d3">
+        <div class="val-icon-wrap">🌾</div>
+        <h3>Traditional Craft</h3>
+        <p>We preserve the art of stone grinding — a method that keeps flour nutritious, flavourful, and chemical-free.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SHOWROOM VIDEOS ═════════════════════════════════════ -->
+<section class="sec showroom-sec">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow light reveal">Virtual Tour</p>
+      <h2 class="sec-h2 light reveal d1">Step Inside Our <em style="color:var(--gold);">Showroom</em></h2>
+      <p class="sec-p light reveal d2">Can't visit in person? Watch our showroom tour videos and see our machines grinding live in action.</p>
+    </div>
+    <div class="vid-grid">
+      <div class="vid-wrap reveal">
+        <video controls>
+          <source src="showroom1.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="vid-wrap reveal d2">
+        <video controls>
+          <source src="showroom2.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOUNDER QUOTE ══════════════════════════════════════ -->
+<section class="sec quote-sec">
+  <div class="quote-card reveal">
+    <blockquote>
+      "At Anandi Atta Chakki, we don't just sell machines — we build relationships. Our goal is to serve every customer with genuine products, honest advice, and personal care that goes beyond the showroom."
+    </blockquote>
+    <div class="quote-line"></div>
+    <p class="quote-cite">— <strong>Jameer Mulla</strong>, Founder &amp; Dealer, Anandi Atta Chakki, Satara</p>
+  </div>
+</section>
+
+<!-- ══ CTA STRIP ══════════════════════════════════════════ -->
+<section class="cta-strip">
+  <h2 class="reveal">Visit Our <span>Showroom Today</span></h2>
+  <p class="reveal d1">Come see our full range of flour mills in person — or chat with us on WhatsApp right now. Open 7 days, 9 AM to 9 PM.</p>
+  <div class="cta-btns reveal d2">
+    <a href="https://wa.me/919922433203" target="_blank" class="btn btn-wa">💬 Chat on WhatsApp</a>
+    <a href="products.html" class="btn btn-gold">⚙️ View Our Machines</a>
+    <a href="contact.html" class="btn btn-ghost">📍 Get Directions</a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand-row">
+        <img src="logo1" alt="Logo" class="foot-logo" />
+        <div class="foot-name">Anandi Atta Chakki</div>
+      </div>
+      <p class="foot-about">Satara's trusted flour mill showroom since 2007. Providing hygienic, nutritious &amp; fresh chakki atta to thousands of families across Maharashtra.</p>
+      <div class="foot-social">
+        <a href="https://wa.me/919922433203" target="_blank">💬</a>
+        <a href="tel:+919922433203">📞</a>
+        <a href="mailto:mulla.jameer1@gmail.com">✉️</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4 class="foot-h">Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 class="foot-h">Our Machines</h4>
+      <ul>
+        <li><a href="products.html">Classic Flour Mill</a></li>
+        <li><a href="products.html">Commercial Chakki Pro</a></li>
+        <li><a href="products.html">Mini Atta Maker</a></li>
+        <li><a href="comm2.pdf" target="_blank">Classic Brochure</a></li>
+        <li><a href="comm55.pdf" target="_blank">Commercial Brochure</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 class="foot-h">Contact</h4>
+      <div class="foot-ci"><span class="ic">📍</span><span>UG 19, Bhandari Heights, Degav Phata, Rahimatpur Road, Kodoli, Satara, MH</span></div>
+      <div class="foot-ci"><span class="ic">📞</span><span>+91 99224 33203<br/>+91 91720 43202</span></div>
+      <div class="foot-ci"><span class="ic">✉️</span><span>mulla.jameer1@gmail.com</span></div>
+      <div class="foot-ci"><span class="ic">🕐</span><span>Mon–Sun: 9:00 AM – 9:00 PM</span></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 <span>Anandi Atta Chakki</span> | Satara, Maharashtra | Designed with ❤️ by <span>Suzan M.</span></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/919922433203" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<!-- ══ JS ══════════════════════════════════════════════════ -->
+<script>
+  /* Scroll progress */
+  const spb = document.getElementById('spb');
+  window.addEventListener('scroll', () => {
+    spb.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+  }, { passive: true });
+
+  /* Navbar scroll effect */
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* Hamburger */
+  const burger  = document.getElementById('burger');
+  const navMenu = document.getElementById('navMenu');
+  burger.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    const [s1, s2, s3] = burger.querySelectorAll('span');
+    s1.style.transform = open ? 'rotate(45deg) translate(5px,5px)'   : '';
+    s2.style.opacity   = open ? '0' : '1';
+    s3.style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  });
+
+  /* Scroll reveal — adds class "in" */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
 
 </body>
-<!-- Sticky WhatsApp Chat Button -->
-<a href="https://wa.me/919922433203" target="_blank" title="Chat with us on WhatsApp" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999;
-  background-color: #25D366;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 50%;
-  font-size: 24px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-decoration: none;">
-  💬
-</a>
-
 </html>

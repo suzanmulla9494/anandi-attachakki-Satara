@@ -2,170 +2,552 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us - Anandi Atta Chakki</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Anandi Atta Chakki – Satara Flour Mill Showroom</title>
+  <meta name="description" content="Get in touch with Anandi Atta Chakki in Kodoli, Satara. Call, WhatsApp, or visit our showroom. Open Mon–Sun, 9 AM to 9 PM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fffdfa;
-      color: #333;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: #FFFBF0; color: #292017; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; } ul { list-style: none; }
+
+    /* ── SCROLL BAR ── */
+    #spb { position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#F59E0B,#EF6C00,#F59E0B);background-size:200%;z-index:9999;transition:width 0.1s; }
+
+    /* ── NAVBAR ── */
+    .nav { position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.4s ease; }
+    .nav-bg { position:absolute;inset:0;background:rgba(10,5,0,0.72);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid rgba(245,158,11,0.2);transition:all 0.4s ease; }
+    .nav.scrolled .nav-bg { background:rgba(10,5,0,0.96);box-shadow:0 4px 40px rgba(0,0,0,0.5); }
+    .nav-inner { position:relative;z-index:1;max-width:1200px;margin:0 auto;height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 28px; }
+    .nav-brand { display:flex;align-items:center;gap:13px; }
+    .nav-logo { width:52px;height:52px;object-fit:cover;border-radius:12px;border:2px solid #F59E0B;box-shadow:0 0 16px rgba(245,158,11,0.38);flex-shrink:0; }
+    .nav-brand-t1 { display:block;font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:#F59E0B;line-height:1.2; }
+    .nav-brand-t2 { display:block;font-size:0.62rem;color:rgba(255,255,255,0.42);letter-spacing:0.4px; }
+    .nav-menu { display:flex;align-items:center;gap:2px; }
+    .nav-menu a { position:relative;padding:9px 15px;border-radius:9px;font-size:0.86rem;font-weight:500;color:rgba(255,255,255,0.78);transition:all 0.3s ease;white-space:nowrap; }
+    .nav-menu a::after { content:'';position:absolute;bottom:5px;left:50%;transform:translateX(-50%) scaleX(0);width:50%;height:2px;background:linear-gradient(90deg,#F59E0B,#EF6C00);border-radius:2px;transition:transform 0.3s ease; }
+    .nav-menu a:hover, .nav-menu a.active { color:#F59E0B;background:rgba(245,158,11,0.09); }
+    .nav-menu a:hover::after, .nav-menu a.active::after { transform:translateX(-50%) scaleX(1); }
+    .nav-cta-btn { margin-left:6px!important;padding:10px 22px!important;border-radius:50px!important;background:linear-gradient(135deg,#F59E0B,#EF6C00)!important;color:#fff!important;font-weight:700!important;box-shadow:0 4px 20px rgba(239,108,0,0.42)!important; }
+    .nav-cta-btn:hover { transform:translateY(-2px)!important;box-shadow:0 10px 30px rgba(239,108,0,0.6)!important; }
+    .nav-cta-btn::after { display:none!important; }
+    .burger { display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none; }
+    .burger span { display:block;width:24px;height:2px;background:#F59E0B;border-radius:2px;transition:all 0.35s ease; }
+    @media(max-width:860px){
+      .burger{display:flex;}
+      .nav-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:rgba(10,5,0,0.98);padding:14px 20px 20px;gap:4px;border-top:1px solid rgba(245,158,11,0.15);}
+      .nav-menu.open{display:flex;}
+      .nav-menu a{text-align:center;}
+      .nav-cta-btn{margin-left:0!important;}
     }
-    header {
-      background: #f9a825;
-      color: white;
+
+    /* ── REVEAL ── */
+    .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.in{opacity:1;transform:translateY(0);}
+
+    /* ── PAGE HERO ────────────────────────────── */
+    .contact-hero {
+      position: relative;
+      padding: 140px 24px 100px;
       text-align: center;
-      padding: 20px;
+      background: linear-gradient(160deg,#0D0803 0%,#1A1208 50%,#2D1E0A 100%);
+      overflow: hidden;
     }
-    nav a {
-      margin: 0 15px;
+    .contact-hero::before {
+      content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:700px;height:700px;background:radial-gradient(circle,rgba(245,158,11,0.09) 0%,transparent 65%);pointer-events:none;
+    }
+    .hero-badge-sm{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,0.13);border:1px solid rgba(245,158,11,0.4);color:#FDE68A;font-size:0.75rem;font-weight:700;padding:7px 20px;border-radius:100px;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;animation:fadeInDown 0.8s ease both;}
+    .contact-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,3.8rem);color:#fff;margin-bottom:16px;animation:fadeInUp 0.9s ease both;}
+    .contact-hero h1 span{background:linear-gradient(135deg,#F59E0B,#EF6C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .contact-hero p{font-size:1.05rem;color:rgba(255,255,255,0.7);max-width:560px;margin:0 auto;line-height:1.75;animation:fadeInUp 1s ease 0.2s both;}
+    .hero-wave{position:absolute;bottom:-2px;left:0;right:0;}
+
+    /* ── QUICK CONTACT CARDS ──────────────────── */
+    .quick-cards-section {
+      padding: 64px 24px 0;
+      background: #FFFBF0;
+    }
+    .quick-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .quick-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border: 1px solid rgba(245,158,11,0.13);
+      transition: all 0.35s ease;
       text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-    .container {
-      padding: 40px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .contact-info, .contact-form {
-      background-color: #fff3e0;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-    }
-    .contact-info h3, .contact-form h3 {
-      margin-top: 0;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
+      color: inherit;
       display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
     }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #bbb;
-      border-radius: 5px;
+    .quick-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 48px rgba(245,158,11,0.2);
+      border-color: rgba(245,158,11,0.35);
     }
-    button {
-      background-color: #25D366;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
+    .quick-card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
     }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-      border-radius: 10px;
+    .quick-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1A1208;
+      margin-bottom: 6px;
     }
-   footer {
-      background: #fbc02d;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.95em;
-      color: #333;
+    .quick-card p {
+      font-size: 0.84rem;
+      color: #6B4C3B;
     }
+    .quick-card .q-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #F59E0B;
+      margin-bottom: 10px;
+    }
+
+    /* ── MAIN CONTACT SECTION ──────────────────── */
+    .contact-main {
+      padding: 72px 24px 90px;
+      background: #FFFBF0;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    @media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── INFO CARD ──────────────────────────────── */
+    .info-card {
+      background: linear-gradient(160deg,#1A1208,#2D1E0A);
+      border-radius: 22px;
+      padding: 44px 36px;
+      border: 1px solid rgba(245,158,11,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .info-card::before {
+      content:'';position:absolute;bottom:-60px;right:-60px;
+      width:220px;height:220px;
+      border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.08) 0%,transparent 70%);
+    }
+    .info-card h3 {
+      font-family:'Playfair Display',serif;font-size:1.7rem;
+      color:#F59E0B;margin-bottom:8px;
+    }
+    .info-card > p {
+      font-size:0.9rem;color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.7;
+    }
+    .info-item {
+      display:flex;align-items:flex-start;gap:16px;
+      padding:18px;border-radius:14px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(245,158,11,0.08);
+      margin-bottom:14px;
+      transition:all 0.32s ease;
+      text-decoration:none;
+    }
+    .info-item:hover {
+      background:rgba(245,158,11,0.1);
+      border-color:rgba(245,158,11,0.25);
+      transform:translateX(5px);
+    }
+    .info-icon {
+      width:46px;height:46px;
+      border-radius:12px;
+      background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,108,0,0.15));
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.3rem;flex-shrink:0;
+    }
+    .info-text strong {
+      display:block;font-size:0.72rem;font-weight:800;
+      letter-spacing:1.5px;text-transform:uppercase;
+      color:#F59E0B;margin-bottom:5px;
+    }
+    .info-text span {
+      font-size:0.9rem;color:rgba(255,255,255,0.78);line-height:1.55;
+    }
+
+    .timing-badge {
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(46,125,50,0.15);
+      border:1px solid rgba(46,125,50,0.3);
+      color:#6FCF97;
+      font-size:0.78rem;font-weight:700;
+      padding:8px 16px;border-radius:100px;
+      margin-top:24px;
+    }
+    .timing-dot {width:7px;height:7px;border-radius:50%;background:#6FCF97;animation:blink 1.5s ease infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+
+    /* ── FORM CARD ─────────────────────────────── */
+    .form-card {
+      background:#fff;
+      border-radius:22px;
+      padding:44px 40px;
+      box-shadow:0 12px 48px rgba(0,0,0,0.09);
+      border:1px solid rgba(245,158,11,0.12);
+    }
+    @media(max-width:600px){.form-card{padding:32px 20px;}}
+    .form-card h3 {
+      font-family:'Playfair Display',serif;font-size:1.7rem;
+      color:#1A1208;margin-bottom:6px;
+    }
+    .form-card > p {
+      font-size:0.9rem;color:#8B6347;margin-bottom:32px;
+    }
+    .form-row {
+      display:grid;grid-template-columns:1fr 1fr;gap:18px;
+    }
+    @media(max-width:580px){.form-row{grid-template-columns:1fr;}}
+    .fg { margin-bottom:20px; }
+    .fg label {
+      display:block;font-size:0.82rem;font-weight:700;
+      color:#3D2B1F;margin-bottom:8px;letter-spacing:0.3px;
+    }
+    .fg input, .fg textarea, .fg select {
+      width:100%;padding:13px 18px;
+      border:2px solid #EAE0D5;
+      border-radius:12px;
+      font-family:'Poppins',sans-serif;font-size:0.9rem;
+      color:#3D2B1F;background:#FFFBF0;
+      transition:all 0.3s ease;outline:none;resize:vertical;
+    }
+    .fg input:focus,.fg textarea:focus,.fg select:focus {
+      border-color:#F59E0B;background:#fff;
+      box-shadow:0 0 0 4px rgba(245,158,11,0.12);
+    }
+    .fg input::placeholder,.fg textarea::placeholder{color:#B8A090;}
+    .form-submit-btn {
+      width:100%;padding:16px;
+      background:linear-gradient(135deg,#F59E0B,#EF6C00);
+      color:#fff;border:none;border-radius:50px;
+      font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;
+      cursor:pointer;transition:all 0.35s ease;
+      box-shadow:0 8px 28px rgba(239,108,0,0.35);
+      letter-spacing:0.3px;
+    }
+    .form-submit-btn:hover {
+      transform:translateY(-3px);
+      box-shadow:0 14px 40px rgba(239,108,0,0.55);
+    }
+    .form-note {
+      text-align:center;font-size:0.78rem;color:#9B7B6A;margin-top:14px;
+    }
+
+    /* ── MAP ─────────────────────────────────────── */
+    .map-section {
+      padding: 0 24px 90px;
+      background: #FFFBF0;
+    }
+    .map-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.14);
+      border: 1px solid rgba(245,158,11,0.15);
+    }
+    .map-header {
+      background: linear-gradient(135deg,#1A1208,#2D1E0A);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .map-header span:first-child { font-size: 1.4rem; }
+    .map-header-text strong {
+      display:block;color:#F59E0B;font-size:0.95rem;font-weight:700;
+    }
+    .map-header-text span { font-size:0.82rem;color:rgba(255,255,255,0.6); }
+    .map-wrap iframe { width:100%;height:380px;border:none;display:block; }
+
+    /* Footer */
+    .site-footer{background:#0D0803;padding:56px 24px 28px;border-top:1px solid rgba(245,158,11,0.15);}
+    .footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto;padding-bottom:44px;border-bottom:1px solid rgba(245,158,11,0.12);}
+    @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:500px){.footer-grid{grid-template-columns:1fr;}}
+    .foot-logo-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+    .foot-logo{width:50px;height:50px;object-fit:cover;border-radius:10px;border:2px solid rgba(245,158,11,0.4);}
+    .foot-brand-name{font-family:'Playfair Display',serif;font-size:1.25rem;color:#F59E0B;}
+    .foot-brand p{font-size:0.875rem;color:rgba(255,255,255,0.55);line-height:1.75;margin-bottom:22px;}
+    .foot-social{display:flex;gap:10px;}
+    .foot-social a{width:36px;height:36px;border-radius:50%;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#F59E0B;text-decoration:none;transition:all 0.3s;}
+    .foot-social a:hover{background:#F59E0B;color:#1A1208;transform:translateY(-3px);}
+    .foot-col h4{font-size:0.75rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#F59E0B;margin-bottom:20px;}
+    .foot-col ul{list-style:none;}
+    .foot-col ul li{margin-bottom:11px;}
+    .foot-col ul li a{font-size:0.875rem;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.25s;}
+    .foot-col ul li a:hover{color:#F59E0B;}
+    .foot-contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+    .foot-contact-item .fi{font-size:1rem;margin-top:2px;flex-shrink:0;}
+    .foot-contact-item span{font-size:0.84rem;color:rgba(255,255,255,0.55);line-height:1.5;}
+    .footer-bottom{text-align:center;padding-top:28px;max-width:1100px;margin:0 auto;}
+    .footer-bottom p{font-size:0.82rem;color:rgba(255,255,255,0.3);}
+    .footer-bottom span{color:#F59E0B;}
+    .wa-float{position:fixed;bottom:30px;right:30px;z-index:9999;width:62px;height:62px;background:linear-gradient(135deg,#1ebea5,#25D366);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,0.55);transition:all 0.35s ease;animation:waPulse 2.5s ease infinite;}
+    .wa-float:hover{transform:scale(1.15) rotate(-8deg);animation:none;}
+    @keyframes waPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,0.55);}50%{box-shadow:0 6px 48px rgba(37,211,102,0.85);}}
+
+    /* Success message */
+    .success-msg {
+      display:none;text-align:center;padding:20px;
+      background:rgba(46,125,50,0.1);border:2px solid rgba(46,125,50,0.35);
+      border-radius:14px;margin-top:16px;color:#2E7D32;font-weight:600;font-size:0.95rem;
+    }
+    .success-msg.show { display:block; animation:fadeIn 0.4s ease; }
   </style>
 </head>
 <body>
+<div id="spb"></div>
 
-<header>
-  <h1>Anandi Atta Chakki</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-     <a href="faq.html">FAQs</a>
-  </nav>
-</header>
-
-<div class="container">
-
-  <div class="contact-info">
-    <h3>Contact Information</h3>
-    <p><strong>Address:</strong> UG 19, Bhandari Heights Degav phata Rahimatpur Road Near Maha E-seva, Kodoli Satara, Maharashtra</p>
-    <p><strong>Phone:</strong> +91 9922433203/ 9172043202. </p>
-    <p><strong>Email:</strong> mulla.jameer1@gmail.com</p>
-    <p><strong>Timings:</strong> Mon–sun | 9:00 AM – 9:00 PM</p>
+<!-- ── NAVBAR ── -->
+<nav class="nav" id="mainNav">
+  <div class="nav-bg"></div>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="logo1" alt="Anandi Atta Chakki" class="nav-logo" />
+      <div>
+        <span class="nav-brand-t1">Anandi Atta Chakki</span>
+        <span class="nav-brand-t2">Satara's Trusted Flour Mill · Since 2007</span>
+      </div>
+    </a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="faq.html">FAQs</a></li>
+      <li><a href="contact.html" class="nav-cta-btn active">Contact Us</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</nav>
 
-  <div class="contact-form">
-    <h3>Send Us a Message</h3>
-    <form onsubmit="sendWhatsApp(event)">
-      <div class="form-group">
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" placeholder="Enter your name" required />
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" placeholder="Enter your number" required />
-      </div>
-      <div class="form-group">
-        <label for="message">Your Message:</label>
-        <textarea id="message" rows="4" placeholder="Write your message here..." required></textarea>
-      </div>
-      <button type="submit">Send on WhatsApp</button>
-    </form>
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="contact-hero">
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge-sm">📍 Find Us</div>
+    <h1>Let's <span>Connect</span></h1>
+    <p>We're here to answer your questions, help you choose the right machine, and make your experience effortless.</p>
   </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0 60 C360 0 1080 0 1440 60 L1440 60 L0 60 Z" fill="#FFFBF0"/>
+  </svg>
+</section>
 
-  <div class="map">
-    <h3>Visit Us on Google Maps</h3>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.486909558816!2d74.02241864059141!3d17.674444083332197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2399f150d7a5f%3A0xdc15b48b439327ed!2sanandi%20atachakki%20satara!5e0!3m2!1sen!2sin!4v1754329760287!5m2!1sen!2sin" 
-      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+<!-- ── QUICK CONTACT CARDS ──────────────────────────────── -->
+<section class="quick-cards-section">
+  <div class="quick-cards">
+    <a href="https://wa.me/919922433203" target="_blank" class="quick-card reveal">
+      <span class="quick-card-icon">💬</span>
+      <span class="q-label">WhatsApp</span>
+      <h3>Chat with Us</h3>
+      <p>+91 99224 33203</p>
+    </a>
+    <a href="tel:+919922433203" class="quick-card reveal reveal-d1">
+      <span class="quick-card-icon">📞</span>
+      <span class="q-label">Call Us</span>
+      <h3>Direct Call</h3>
+      <p>+91 99224 33203<br/>+91 91720 43202</p>
+    </a>
+    <a href="mailto:mulla.jameer1@gmail.com" class="quick-card reveal reveal-d2">
+      <span class="quick-card-icon">✉️</span>
+      <span class="q-label">Email</span>
+      <h3>Send Email</h3>
+      <p>mulla.jameer1@gmail.com</p>
+    </a>
+    <a href="https://maps.google.com/?q=anandi+atachakki+satara" target="_blank" class="quick-card reveal reveal-d3">
+      <span class="quick-card-icon">🗺️</span>
+      <span class="q-label">Visit</span>
+      <h3>Get Directions</h3>
+      <p>Kodoli, Satara, MH</p>
+    </a>
+  </div>
+</section>
+
+<!-- ── MAIN CONTACT ──────────────────────────────────────── -->
+<section class="contact-main">
+  <div class="contact-grid">
+
+    <!-- Info -->
+    <div class="info-card reveal">
+      <h3>Visit Our Showroom</h3>
+      <p>Come see our full range of flour mill machines in person — we love meeting our customers!</p>
+
+      <a class="info-item" href="https://maps.google.com/?q=anandi+atachakki+satara" target="_blank">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <strong>Address</strong>
+          <span>UG 19, Bhandari Heights, Degav Phata, Rahimatpur Road, Near Maha E-Seva, Kodoli, Satara, Maharashtra</span>
+        </div>
+      </a>
+
+      <a class="info-item" href="tel:+919922433203">
+        <div class="info-icon">📞</div>
+        <div class="info-text">
+          <strong>Phone Numbers</strong>
+          <span>+91 99224 33203<br/>+91 91720 43202</span>
+        </div>
+      </a>
+
+      <a class="info-item" href="mailto:mulla.jameer1@gmail.com">
+        <div class="info-icon">✉️</div>
+        <div class="info-text">
+          <strong>Email</strong>
+          <span>mulla.jameer1@gmail.com</span>
+        </div>
+      </a>
+
+      <a class="info-item" href="https://wa.me/919922433203" target="_blank">
+        <div class="info-icon">💬</div>
+        <div class="info-text">
+          <strong>WhatsApp</strong>
+          <span>Chat with us instantly for quick enquiries or orders</span>
+        </div>
+      </a>
+
+      <div class="timing-badge">
+        <div class="timing-dot"></div>
+        Open Now &nbsp;·&nbsp; Mon–Sun: 9:00 AM – 9:00 PM
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-card reveal reveal-d1">
+      <h3>Send Us a Message</h3>
+      <p>Fill in the form below and we'll forward your message to WhatsApp instantly.</p>
+
+      <form onsubmit="sendToWhatsApp(event)" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="fg">
+            <label for="fname">Your Name *</label>
+            <input type="text" id="fname" placeholder="e.g. Sunita Jadhav" required />
+          </div>
+          <div class="fg">
+            <label for="fphone">Phone Number *</label>
+            <input type="tel" id="fphone" placeholder="+91 98765 43210" required />
+          </div>
+        </div>
+
+        <div class="fg">
+          <label for="finterest">Interested In</label>
+          <select id="finterest">
+            <option value="">Select a product…</option>
+            <option>Classic Flour Mill (Home Use)</option>
+            <option>Commercial Chakki Pro (Business)</option>
+            <option>Mini Atta Maker (Compact)</option>
+            <option>Fresh Chakki Atta Service</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label for="fmsg">Your Message *</label>
+          <textarea id="fmsg" rows="4" placeholder="Tell us what you need…" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit-btn" id="submitBtn">
+          💬 Send on WhatsApp
+        </button>
+        <p class="form-note">Your message will open WhatsApp with a pre-filled text.</p>
+        <div class="success-msg" id="successMsg">✅ Redirecting to WhatsApp…</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAP ──────────────────────────────────────────────── -->
+<section class="map-section">
+  <div class="map-wrap reveal">
+    <div class="map-header">
+      <span>🗺️</span>
+      <div class="map-header-text">
+        <strong>Anandi Atta Chakki – Satara</strong>
+        <span>UG 19, Bhandari Heights, Degav Phata, Kodoli, Satara, Maharashtra</span>
+      </div>
+    </div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.486909558816!2d74.02241864059141!3d17.674444083332197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2399f150d7a5f%3A0xdc15b48b439327ed!2sanandi%20atachakki%20satara!5e0!3m2!1sen!2sin!4v1754329760287!5m2!1sen!2sin"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Anandi Atta Chakki location on Google Maps">
     </iframe>
   </div>
+</section>
 
-</div>
-
-<footer>
-  &copy; 2025 Anandi Atta Chakki | Satara | Designed by Suzan M.
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="foot-brand">
+      <div class="foot-logo-row"><img src="logo1" alt="Logo" class="foot-logo" /><div class="foot-brand-name">Anandi Atta Chakki</div></div>
+      <p>Satara's trusted flour mill showroom since 2007.</p>
+      <div class="foot-social"><a href="https://wa.me/919922433203" target="_blank">💬</a><a href="tel:+919922433203">📞</a><a href="mailto:mulla.jameer1@gmail.com">✉️</a></div>
+    </div>
+    <div class="foot-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="faq.html">FAQs</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="foot-col"><h4>Our Machines</h4><ul><li><a href="products.html">Classic Flour Mill</a></li><li><a href="products.html">Commercial Chakki Pro</a></li><li><a href="products.html">Mini Atta Maker</a></li></ul></div>
+    <div class="foot-col"><h4>Contact</h4><div class="foot-contact-item"><span class="fi">📍</span><span>UG 19, Bhandari Heights, Kodoli, Satara</span></div><div class="foot-contact-item"><span class="fi">📞</span><span>+91 99224 33203</span></div><div class="foot-contact-item"><span class="fi">🕐</span><span>Mon–Sun: 9 AM – 9 PM</span></div></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 <span>Anandi Atta Chakki</span> | Designed with ❤️ by <span>Suzan M.</span></p></div>
 </footer>
 
+<a href="https://wa.me/919922433203" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+
 <script>
-  function sendWhatsApp(event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const message = document.getElementById("message").value.trim();
+  const spb = document.getElementById('spb');
+  window.addEventListener('scroll', () => { spb.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%'; }, { passive: true });
+  const mainNav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+  const burger  = document.getElementById('burger');
+  const navMenu = document.getElementById('navMenu');
+  burger.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    const [s1,s2,s3] = burger.querySelectorAll('span');
+    s1.style.transform = open ? 'rotate(45deg) translate(5px,5px)'   : '';
+    s2.style.opacity   = open ? '0' : '1';
+    s3.style.transform = open ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  });
+  navMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = '1'; });
+    });
+  });
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    if (!name || !phone || !message) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    const fullMessage = `Hello! i came here through the website${name}.`;
-    const encoded = encodeURIComponent(fullMessage);
-    const whatsappURL = `https://wa.me/919922433203?text=${encoded}`;
-    window.open(whatsappURL, '_blank');
+  function sendToWhatsApp(e) {
+    e.preventDefault();
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const interest = document.getElementById('finterest').value;
+    const msg = document.getElementById('fmsg').value.trim();
+    if (!name || !phone || !msg) { alert('Please fill in all required fields.'); return; }
+    const text = `Hello! I came through your website 🌾\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Interested In:* ${interest || 'Not specified'}\n*Message:* ${msg}`;
+    document.getElementById('successMsg').classList.add('show');
+    setTimeout(() => { window.open(`https://wa.me/919922433203?text=${encodeURIComponent(text)}`, '_blank'); }, 400);
   }
 </script>
-
 </body>
-<!-- Sticky WhatsApp Chat Button -->
-<a href="https://wa.me/919922433203" target="_blank" title="Chat with us on WhatsApp" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999;
-  background-color: #25D366;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 50%;
-  font-size: 24px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-decoration: none;">
-  💬
-</a>
-
 </html>

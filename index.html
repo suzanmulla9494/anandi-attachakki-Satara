@@ -2,299 +2,1217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Anandi Atta Chakki | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <title>Anandi Atta Chakki | Fresh Flour Mill – Satara</title>
+  <meta name="description" content="Anandi Atta Chakki – Satara's most trusted flour mill showroom since 2007. Stone-ground fresh chakki atta, premium flour mill machines for home & commercial use." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
   <style>
-    /* === BASIC STYLES === */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fffef3;
-      color: #333;
+  /* ================================================================
+     DESIGN TOKENS
+  ================================================================ */
+  :root {
+    --gold:        #F59E0B;
+    --gold-lt:     #FDE68A;
+    --gold-dk:     #D97706;
+    --saffron:     #EF6C00;
+    --saffron-dk:  #BF360C;
+    --rust:        #C84B11;
+    --green:       #16A34A;
+    --green-lt:    #22C55E;
+    --cream:       #FEFCE8;
+    --cream-2:     #FFFBF0;
+    --dark:        #0A0500;
+    --dark-2:      #160C02;
+    --dark-3:      #271505;
+    --warm-dark:   #1C1007;
+    --text:        #292017;
+    --text-md:     #4A3220;
+    --text-lt:     #7C5A42;
+    --white:       #FFFFFF;
+    --border-gold: rgba(245,158,11,0.22);
+    --shadow-gold: rgba(245,158,11,0.25);
+    --ease-out:    cubic-bezier(0.16,1,0.3,1);
+    --ease-in-out: cubic-bezier(0.4,0,0.2,1);
+    --radius-xl:   24px;
+    --radius-lg:   18px;
+    --radius-md:   12px;
+  }
+  /* ================================================================
+     BASE RESET
+  ================================================================ */
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+  img { display:block; max-width:100%; }
+  a   { text-decoration:none; color:inherit; }
+  ul  { list-style:none; }
+  /* ================================================================
+     SCROLL PROGRESS BAR
+  ================================================================ */
+  #spb {
+    position: fixed; top:0; left:0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg,
+      var(--gold-lt), var(--gold), var(--saffron), var(--gold), var(--gold-lt));
+    background-size: 300% 100%;
+    animation: pbFlow 3s linear infinite;
+    z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 12px rgba(245,158,11,0.6);
+  }
+  @keyframes pbFlow { 0%{background-position:0% 0} 100%{background-position:300% 0} }
+  /* ================================================================
+     CURSOR GLOW
+  ================================================================ */
+  .cursor-glow {
+    position: fixed;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(-50%,-50%);
+    transition: opacity 0.3s;
+  }
+  /* ================================================================
+     NAVBAR
+  ================================================================ */
+  .nav {
+    position: fixed; top:0; left:0; right:0;
+    z-index: 1000;
+    transition: all 0.4s var(--ease-in-out);
+  }
+  /* frosted top strip */
+  .nav-bg {
+    position: absolute; inset:0;
+    background: rgba(10,5,0,0.7);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-bottom: 1px solid var(--border-gold);
+    transition: all 0.4s var(--ease-in-out);
+  }
+  .nav.scrolled .nav-bg {
+    background: rgba(10,5,0,0.96);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  }
+  .nav-inner {
+    position: relative; z-index:1;
+    max-width: 1200px; margin:0 auto;
+    height: 74px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 13px;
+  }
+  .nav-logo {
+    width: 52px; height: 52px;
+    object-fit: cover; border-radius: 12px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 18px rgba(245,158,11,0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
+    transition: box-shadow 0.3s;
+  }
+  .nav-logo:hover { box-shadow: 0 0 28px rgba(245,158,11,0.7); }
+  .brand-text-top {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--gold); display: block; line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+  .brand-text-btm {
+    font-size: 0.65rem; color: rgba(255,255,255,0.46);
+    display: block; letter-spacing: 0.6px;
+  }
+  .nav-menu {
+    display: flex; align-items: center; gap: 2px;
+  }
+  .nav-menu a {
+    position: relative;
+    padding: 9px 16px; border-radius: 9px;
+    font-size: 0.875rem; font-weight: 500;
+    color: rgba(255,255,255,0.78);
+    transition: all 0.3s var(--ease-in-out);
+  }
+  .nav-menu a::after {
+    content: '';
+    position: absolute; bottom: 5px; left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 50%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--saffron));
+    border-radius: 2px;
+    transition: transform 0.3s var(--ease-out);
+  }
+  .nav-menu a:hover, .nav-menu a.active {
+    color: var(--gold); background: rgba(245,158,11,0.09);
+  }
+  .nav-menu a:hover::after, .nav-menu a.active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+  .nav-contact-btn {
+    margin-left: 6px;
+    padding: 10px 24px !important;
+    border-radius: 50px !important;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--saffron) 100%) !important;
+    color: var(--white) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 20px rgba(239,108,0,0.45) !important;
+    transition: all 0.3s var(--ease-out) !important;
+  }
+  .nav-contact-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 32px rgba(239,108,0,0.62) !important;
+  }
+  .nav-contact-btn::after { display:none !important; }
+  .burger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 6px; background: none; border: none;
+  }
+  .burger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+    transition: all 0.35s var(--ease-out);
+  }
+  @media(max-width:860px) {
+    .burger { display: flex; }
+    .nav-menu {
+      display: none; position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch;
+      background: rgba(10,5,0,0.98);
+      padding: 14px 20px 20px;
+      gap: 4px;
+      border-top: 1px solid var(--border-gold);
     }
-
-    header {
-      background: #f9a825;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-
-    header p {
-      margin: 5px 0;
-      font-size: 1.1em;
-    }
-
-    nav {
-      margin-top: 10px;
-    }
-
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* === HERO SECTION === */
-    .hero-section {
-      text-align: center;
-      padding: 30px;
-      background: #fff8e1;
-    }
-
-    .hero-img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .cta-button {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #43a047;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-
-    /* === FEATURES SECTION === */
-    .features {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 30px;
-      background: #fffbe7;
-    }
-
-    .feature-card {
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 10px;
-      width: 280px;
-      padding: 20px;
-      box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .feature-card h3 {
-      color: #d84315;
-      margin-bottom: 10px;
-    }
-
-    /* === FOOTER === */
-    footer {
-      background: hsl(43, 96%, 58%);
-      text-align: center;
-      padding: 15px;
-      font-size: 0.95em;
-      color: #333;
-    }
-    .video-background {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.video-background video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  filter: brightness(0.6); /* Optional dark overlay */
-}
-
-.video-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: white;
-  top: 40%;
-  transform: translateY(-50%);
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.full-video-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.full-video-bg video {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-.video-overlay-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
-  z-index: 10;
-  padding: 20px;
-  font-family: 'Poppins', sans-serif;
-  background-color: rgba(0, 0, 0, 0.3); /* optional transparent box */
-  border-radius: 10px;
-}
-.site-header {
-  position: relative;
-  text-align: center;
-  background-color: #f8f1e4; /* Soft wheat tone like products.html */
-  padding: 20px 0;
-  border-bottom: 2px solid #d6c2a8;
-}
-
-.left-logo {
-  position: absolute;
-  top: 15px;
-  left: 25px;
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.center-content h1 {
-  margin: 0;
-  font-size: 28px;
-  color: #6b3e26; /* Dark brown heading */
-  font-family: 'Georgia', serif;
-}
-
-.center-content p {
-  margin: 5px 0 15px;
-  font-size: 14px;
-  color: #4b3621; /* Medium brown subtext */
-}
-
-nav a {
-  margin: 0 12px;
-  text-decoration: none;
-  color: #6b3e26;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-nav a:hover {
-  color: #a0522d; /* lighter brown */
-}
-
+    .nav-menu.open { display: flex; }
+    .nav-menu a { text-align: center; }
+  }
+  /* ================================================================
+     HERO
+  ================================================================ */
+  .hero {
+    position: relative;
+    height: 100vh; min-height: 660px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-vid {
+    position: absolute; inset:0;
+    width:100%; height:100%; object-fit:cover;
+    z-index:0;
+    transform-origin: center;
+  }
+  /* multi-layer overlay for cinematic feel */
+  .hero-overlay {
+    position: absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(0deg, rgba(10,5,0,0.92) 0%, transparent 40%),
+      linear-gradient(180deg, rgba(10,5,0,0.7) 0%, transparent 30%),
+      radial-gradient(ellipse 80% 60% at 50% 50%, rgba(10,5,0,0.4) 0%, rgba(10,5,0,0.75) 100%);
+  }
+  /* golden ambient glow */
+  .hero-aura {
+    position: absolute; z-index:1;
+    width: 900px; height: 900px;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-52%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 65%);
+    animation: auraBreath 5s ease-in-out infinite;
+  }
+  @keyframes auraBreath {
+    0%,100% { transform:translate(-50%,-52%) scale(1); opacity:0.7; }
+    50%      { transform:translate(-50%,-52%) scale(1.15); opacity:1; }
+  }
+  /* ── PARTICLES ─────────────────────────────────────── */
+  #ptcls { position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+  .ptcl {
+    position: absolute; border-radius:50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.7) 0%, rgba(239,108,0,0.2) 50%, transparent 100%);
+    animation: ptclRise linear infinite; opacity:0;
+    filter: blur(1px);
+  }
+  @keyframes ptclRise {
+    0%   { transform:translateY(100vh) scale(0) rotate(0deg);   opacity:0; }
+    5%   { opacity:1; }
+    85%  { opacity:0.6; }
+    100% { transform:translateY(-120px) scale(1.8) rotate(180deg); opacity:0; }
+  }
+  /* ── HERO CONTENT ──────────────────────────────────── */
+  .hero-content {
+    position: relative; z-index:3;
+    text-align: center; color: var(--white);
+    padding: 0 24px; max-width: 900px; width:100%;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--gold-lt);
+    font-size: 0.71rem; font-weight: 700;
+    padding: 8px 22px; border-radius: 100px;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 30px;
+    animation: slideDown 0.9s var(--ease-out) both;
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+    animation: livePulse 1.6s ease infinite;
+  }
+  @keyframes livePulse { 0%,100%{opacity:1;box-shadow:0 0 8px var(--gold)} 50%{opacity:0.25;box-shadow:0 0 2px var(--gold)} }
+  @keyframes slideDown  { from{opacity:0;transform:translateY(-28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes slideUp    { from{opacity:0;transform:translateY(36px)}  to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn     { from{opacity:0} to{opacity:1} }
+  @keyframes scaleIn    { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 5.6rem);
+    font-weight: 800; line-height: 1.08;
+    margin-bottom: 12px;
+    animation: slideUp 1s var(--ease-out) 0.15s both;
+  }
+  .ht-white  { display:block; color: var(--white); }
+  .ht-gold {
+    display: block;
+    background: linear-gradient(120deg,
+      var(--gold-lt) 0%,
+      var(--gold) 30%,
+      var(--saffron) 65%,
+      var(--gold-lt) 100%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideUp 1s var(--ease-out) 0.15s both,
+               goldFlow 4s ease-in-out infinite 1.2s;
+  }
+  @keyframes goldFlow {
+    0%   { background-position:0% center; }
+    50%  { background-position:100% center; }
+    100% { background-position:0% center; }
+  }
+  .hero-desc {
+    font-size: clamp(0.98rem, 2.5vw, 1.18rem);
+    color: rgba(255,255,255,0.74);
+    max-width: 640px; margin: 20px auto 34px;
+    line-height: 1.82;
+    animation: slideUp 1s var(--ease-out) 0.32s both;
+  }
+  .hero-pills {
+    display: flex; flex-wrap:wrap; gap:10px; justify-content:center;
+    margin-bottom: 38px;
+    animation: slideUp 1s var(--ease-out) 0.46s both;
+  }
+  .pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(6px);
+    color: rgba(255,255,255,0.84);
+    font-size: 0.79rem; font-weight: 500;
+    padding: 7px 18px; border-radius: 100px;
+    transition: all 0.3s var(--ease-in-out);
+    cursor: default;
+  }
+  .pill:hover { border-color: var(--gold); color: var(--gold-lt); background: rgba(245,158,11,0.12); }
+  .hero-btns {
+    display: flex; gap:16px; flex-wrap:wrap; justify-content:center;
+    animation: slideUp 1s var(--ease-out) 0.60s both;
+  }
+  /* ── BUTTONS ─────────────────── */
+  .btn {
+    display: inline-flex; align-items:center; gap:8px;
+    padding: 15px 34px; border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.96rem; font-weight: 700;
+    border: none; cursor: pointer;
+    transition: all 0.35s var(--ease-out);
+    letter-spacing: 0.2px;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--saffron) 100%);
+    color: var(--white);
+    box-shadow: 0 6px 28px rgba(239,108,0,0.45),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 42px rgba(239,108,0,0.65),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.38);
+    backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-lt); transform: translateY(-3px); background: rgba(245,158,11,0.1); }
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #1DB954 0%, #25D366 100%);
+    color: var(--white);
+    box-shadow: 0 6px 28px rgba(37,211,102,0.42),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn-whatsapp:hover { transform:translateY(-3px); box-shadow: 0 16px 42px rgba(37,211,102,0.62); }
+  /* ── SCROLL HINT ─────────────── */
+  .scroll-hint {
+    position: absolute; bottom:36px; left:50%;
+    transform: translateX(-50%); z-index:3;
+    display: flex; flex-direction:column; align-items:center; gap:8px;
+    animation: fadeIn 1.8s var(--ease-out) 1.6s both;
+  }
+  .s-mouse {
+    width: 24px; height: 40px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 14px;
+    display: flex; align-items:flex-start; justify-content:center;
+    padding-top: 7px;
+  }
+  .s-wheel {
+    width: 4px; height: 10px; border-radius: 3px;
+    background: var(--gold);
+    animation: sWheel 2s ease infinite;
+  }
+  @keyframes sWheel {
+    0%  { transform:translateY(0); opacity:1; }
+    75% { transform:translateY(14px); opacity:0; }
+    100%{ transform:translateY(0); opacity:0; }
+  }
+  .s-label { font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+  /* ================================================================
+     TICKER
+  ================================================================ */
+  .ticker {
+    position: relative; z-index:10;
+    overflow: hidden; white-space: nowrap;
+    background: linear-gradient(90deg, var(--gold-dk), var(--saffron), var(--rust), var(--saffron), var(--gold-dk));
+    background-size: 300% 100%;
+    animation: tickerBg 8s ease infinite;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  @keyframes tickerBg {
+    0%  { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+  .ticker-track {
+    display: inline-flex;
+    animation: tickerScroll 36s linear infinite;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker-track > span { color:#fff; font-size:0.84rem; font-weight:600; padding:0 30px; letter-spacing:0.3px; }
+  .tick-sep { color:rgba(255,255,255,0.38) !important; font-size:0.65rem !important; }
+  /* ================================================================
+     REVEAL ANIMATIONS
+  ================================================================ */
+  .reveal {
+    opacity:0; transform:translateY(50px);
+    transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+  }
+  .reveal.in { opacity:1; transform:translateY(0); }
+  .d1{ transition-delay:.1s !important; }
+  .d2{ transition-delay:.2s !important; }
+  .d3{ transition-delay:.3s !important; }
+  .d4{ transition-delay:.4s !important; }
+  .d5{ transition-delay:.5s !important; }
+  /* ================================================================
+     SECTION COMMON
+  ================================================================ */
+  .sec  { padding:96px 24px; }
+  .sec-cream  { background: var(--cream); }
+  .sec-cream2 { background: var(--cream-2); }
+  .sec-dark   { background: linear-gradient(160deg, var(--dark) 0%, var(--dark-3) 100%); }
+  .container  { max-width:1180px; margin:0 auto; }
+  .sec-head   { text-align:center; margin-bottom:64px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.68rem; font-weight:800;
+    letter-spacing: 3.5px; text-transform:uppercase;
+    color: var(--gold); margin-bottom:14px;
+  }
+  .eyebrow.light { color: var(--gold-lt); }
+  .sec-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    color: var(--text); line-height:1.2;
+    font-weight: 700;
+  }
+  .sec-h2.light { color: var(--white); }
+  .sec-h2 em    { font-style:normal; color: var(--saffron); }
+  .sec-p {
+    font-size:0.98rem; color: var(--text-lt);
+    max-width:580px; margin:14px auto 0; line-height:1.8;
+  }
+  .sec-p.light { color:rgba(255,255,255,0.62); }
+  /* ================================================================
+     STATS STRIP
+  ================================================================ */
+  .stats-strip {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--warm-dark) 50%, var(--dark) 100%);
+    padding: 72px 24px;
+    position: relative; overflow:hidden;
+  }
+  .stats-strip::before {
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 80% 100% at 50% 50%,
+      rgba(245,158,11,0.07) 0%, transparent 70%);
+  }
+  .stats-strip::after {
+    content:'';
+    position:absolute; top:0; left:0; right:0;
+    height:1px;
+    background: linear-gradient(90deg, transparent, rgba(245,158,11,0.5), transparent);
+  }
+  .stats-row {
+    position:relative;
+    display: grid; grid-template-columns: repeat(4,1fr);
+    max-width:960px; margin:0 auto;
+  }
+  @media(max-width:640px){ .stats-row{grid-template-columns:repeat(2,1fr);} }
+  .stat-box {
+    text-align:center; padding:32px 20px;
+    position:relative; cursor:default;
+  }
+  .stat-box:not(:last-child)::after {
+    content:''; position:absolute; right:0; top:20%; height:60%;
+    width:1px; background:rgba(245,158,11,0.18);
+  }
+  .stat-val {
+    font-family:'Playfair Display',serif;
+    font-size: 3.4rem; font-weight:800; line-height:1;
+    background: linear-gradient(135deg, var(--gold-lt) 0%, var(--gold) 45%, var(--saffron) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:10px;
+    filter: drop-shadow(0 0 20px rgba(245,158,11,0.3));
+  }
+  .stat-lbl {
+    font-size:0.78rem; color:rgba(255,255,255,0.5);
+    font-weight:500; line-height:1.45; letter-spacing:0.3px;
+  }
+  /* ================================================================
+     FEATURE CARDS
+  ================================================================ */
+  .feat-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:26px; max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:900px){ .feat-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:560px){ .feat-grid{grid-template-columns:1fr;} }
+  .feat-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 38px 30px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(245,158,11,0.1);
+    transition: all 0.4s var(--ease-out);
+    position:relative; overflow:hidden;
+    cursor:default;
+  }
+  /* top accent line */
+  .feat-card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--saffron));
+    transform: scaleX(0); transform-origin:left;
+    transition: transform 0.45s var(--ease-out);
+  }
+  /* bg glow on hover */
+  .feat-card::after {
+    content:'';
+    position:absolute; bottom:-80px; right:-80px;
+    width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%);
+    transition: all 0.45s var(--ease-out);
+  }
+  .feat-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 28px 60px rgba(245,158,11,0.18);
+    border-color: rgba(245,158,11,0.35);
+  }
+  .feat-card:hover::before { transform:scaleX(1); }
+  .feat-card:hover::after  { bottom:-20px; right:-20px; width:260px; height:260px; }
+  .feat-icon-wrap {
+    width:66px; height:66px; border-radius:18px;
+    background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(239,108,0,0.07));
+    display:flex; align-items:center; justify-content:center;
+    font-size: 2.2rem; margin-bottom:24px;
+    transition: all 0.4s var(--ease-out);
+    position:relative;
+  }
+  .feat-card:hover .feat-icon-wrap {
+    background: linear-gradient(135deg, var(--gold), var(--saffron));
+    box-shadow: 0 10px 30px rgba(245,158,11,0.45);
+    transform: rotate(-8deg) scale(1.12);
+  }
+  .feat-card h3 { font-size:1.08rem; font-weight:700; color:var(--text); margin-bottom:11px; }
+  .feat-card p  { font-size:0.88rem; color:var(--text-lt); line-height:1.76; }
+  /* ================================================================
+     PRODUCT CARDS
+  ================================================================ */
+  .prod-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:28px; max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:900px){ .prod-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:560px){ .prod-grid{grid-template-columns:1fr;} }
+  .prod-card {
+    background:var(--white); border-radius:var(--radius-xl);
+    overflow:hidden; display:flex; flex-direction:column;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 1px solid rgba(245,158,11,0.1);
+    transition: all 0.4s var(--ease-out);
+  }
+  .prod-card:hover {
+    transform:translateY(-12px);
+    box-shadow: 0 32px 72px rgba(245,158,11,0.22);
+    border-color: rgba(245,158,11,0.35);
+  }
+  .prod-thumb {
+    position:relative; height:240px; overflow:hidden;
+    background: var(--dark-2);
+  }
+  .prod-thumb img {
+    width:100%; height:100%; object-fit:cover;
+    transition: transform 0.65s var(--ease-out);
+  }
+  .prod-card:hover .prod-thumb img { transform:scale(1.12); }
+  .prod-shade {
+    position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(10,5,0,0.65) 0%, transparent 55%);
+    transition: opacity 0.4s;
+  }
+  .prod-badge {
+    position:absolute; top:16px; left:16px;
+    background: linear-gradient(135deg, var(--gold), var(--saffron));
+    color:#fff; font-size:0.7rem; font-weight:800;
+    padding:5px 14px; border-radius:100px;
+    letter-spacing:0.5px; text-transform:uppercase;
+    box-shadow: 0 4px 12px rgba(239,108,0,0.45);
+  }
+  .prod-body { padding:26px 24px; flex:1; display:flex; flex-direction:column; }
+  .prod-h3   { font-size:1.16rem; font-weight:700; color:var(--text); margin-bottom:9px; }
+  .prod-p    { font-size:0.87rem; color:var(--text-lt); line-height:1.7; flex:1; margin-bottom:22px; }
+  .prod-link {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:0.87rem; font-weight:700; color:var(--saffron);
+    transition: gap 0.3s var(--ease-out), color 0.3s;
+  }
+  .prod-card:hover .prod-link { gap:13px; color:var(--rust); }
+  .prod-link .arr { font-size:1rem; transition:transform 0.3s var(--ease-out); }
+  .prod-card:hover .prod-link .arr { transform:translateX(4px); }
+  /* ================================================================
+     VIDEO SECTION
+  ================================================================ */
+  .video-sec {
+    background: linear-gradient(180deg, var(--dark) 0%, #020100 100%);
+    padding: 96px 24px;
+    position:relative; overflow:hidden;
+  }
+  .video-sec::before,
+  .video-sec::after {
+    content:''; position:absolute; left:0; right:0; height:1px;
+    background: linear-gradient(90deg, transparent, rgba(245,158,11,0.45), transparent);
+  }
+  .video-sec::before { top:0; }
+  .video-sec::after  { bottom:0; }
+  .vid-frame {
+    max-width: 940px; margin:0 auto; position:relative;
+  }
+  .vid-frame video {
+    width:100%; border-radius:var(--radius-xl); display:block;
+    box-shadow:
+      0 32px 88px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(245,158,11,0.15),
+      0 0 80px rgba(245,158,11,0.06);
+  }
+  .vid-glow {
+    position:absolute; inset:-40px; border-radius:36px;
+    background: radial-gradient(ellipse, rgba(245,158,11,0.12) 0%, transparent 65%);
+    pointer-events:none;
+    animation: vidGlow 4s ease-in-out infinite;
+  }
+  @keyframes vidGlow { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.03)} }
+  /* ================================================================
+     TESTIMONIALS
+  ================================================================ */
+  .testi-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:24px; max-width:1100px; margin:0 auto;
+  }
+  @media(max-width:900px){ .testi-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:560px){ .testi-grid{grid-template-columns:1fr;} }
+  .testi-card {
+    background:var(--white); border-radius:var(--radius-xl);
+    padding:32px 28px;
+    box-shadow: 0 4px 22px rgba(0,0,0,0.07);
+    border:1px solid rgba(245,158,11,0.1);
+    transition: all 0.38s var(--ease-out);
+    position:relative;
+  }
+  .testi-card::before {
+    content:'';
+    position:absolute; top:0; left:0; right:0;
+    height:3px;
+    background: linear-gradient(90deg, var(--gold), var(--saffron));
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    opacity:0; transition:opacity 0.38s;
+  }
+  .testi-card:hover { transform:translateY(-8px); box-shadow:0 22px 56px rgba(245,158,11,0.16); }
+  .testi-card:hover::before { opacity:1; }
+  .testi-q    { font-size:3.2rem; color:var(--gold-lt); line-height:0.8; margin-bottom:16px; font-family:Georgia,serif; }
+  .testi-body { font-size:0.9rem; color:#4A3728; line-height:1.8; font-style:italic; margin-bottom:20px; }
+  .testi-stars{ color:var(--gold); font-size:0.9rem; letter-spacing:2px; margin-bottom:16px; }
+  .testi-author { display:flex; align-items:center; gap:13px; }
+  .testi-av {
+    width:46px; height:46px; border-radius:50%;
+    background: linear-gradient(135deg, var(--gold), var(--saffron));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.15rem; font-weight:800; color:#fff; flex-shrink:0;
+    box-shadow: 0 4px 14px rgba(245,158,11,0.4);
+  }
+  .testi-name { font-weight:700; font-size:0.9rem; color:var(--text); }
+  .testi-loc  { font-size:0.75rem; color:var(--text-lt); }
+  /* ================================================================
+     CTA SECTION
+  ================================================================ */
+  .cta-sec {
+    padding:96px 24px; text-align:center;
+    background:
+      radial-gradient(ellipse 100% 80% at 50% 100%, rgba(245,158,11,0.08) 0%, transparent 60%),
+      linear-gradient(160deg, var(--dark) 0%, var(--dark-3) 100%);
+    position:relative; overflow:hidden;
+  }
+  .cta-sec::before {
+    content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+    background: linear-gradient(90deg, transparent, rgba(245,158,11,0.4), transparent);
+  }
+  .cta-h2 {
+    font-family:'Playfair Display',serif;
+    font-size: clamp(2.1rem,5.5vw,3.4rem);
+    color:var(--white); margin-bottom:18px; font-weight:800;
+    position:relative;
+  }
+  .cta-h2 .accent {
+    background: linear-gradient(135deg, var(--gold), var(--saffron));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .cta-p  { font-size:1.02rem; color:rgba(255,255,255,0.62); max-width:520px; margin:0 auto 38px; line-height:1.8; position:relative; }
+  .cta-btns { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; position:relative; }
+  /* ================================================================
+     FOOTER
+  ================================================================ */
+  .footer {
+    background: #050200;
+    padding: 64px 24px 30px;
+    border-top: 1px solid var(--border-gold);
+  }
+  .foot-grid {
+    display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:44px; max-width:1180px; margin:0 auto;
+    padding-bottom:48px;
+    border-bottom: 1px solid rgba(245,158,11,0.1);
+  }
+  @media(max-width:860px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:500px){ .foot-grid{grid-template-columns:1fr;} }
+  .foot-brand-row { display:flex; align-items:center; gap:13px; margin-bottom:16px; }
+  .foot-logo { width:52px; height:52px; object-fit:cover; border-radius:12px; border:2px solid rgba(245,158,11,0.4); }
+  .foot-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--gold); }
+  .foot-about { font-size:0.85rem; color:rgba(255,255,255,0.5); line-height:1.78; margin-bottom:22px; }
+  .foot-social { display:flex; gap:10px; }
+  .foot-social a {
+    width:38px; height:38px; border-radius:50%;
+    background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.22);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.92rem; color:var(--gold); transition:all 0.3s var(--ease-out);
+  }
+  .foot-social a:hover { background:var(--gold); color:var(--dark); transform:translateY(-4px); box-shadow:0 8px 20px rgba(245,158,11,0.4); }
+  .foot-h { font-size:0.7rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; }
+  .foot-col ul li { margin-bottom:12px; }
+  .foot-col ul li a { font-size:0.85rem; color:rgba(255,255,255,0.5); transition:color 0.25s; display:flex; align-items:center; gap:6px; }
+  .foot-col ul li a::before { content:'›'; color:var(--gold); opacity:0; transform:translateX(-4px); transition:all 0.25s; }
+  .foot-col ul li a:hover { color:var(--gold); }
+  .foot-col ul li a:hover::before { opacity:1; transform:translateX(0); }
+  .foot-ci { display:flex; align-items:flex-start; gap:11px; margin-bottom:14px; }
+  .foot-ci .ic { font-size:1rem; margin-top:2px; flex-shrink:0; }
+  .foot-ci span { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.55; }
+  .foot-bottom { text-align:center; padding-top:30px; max-width:1180px; margin:0 auto; }
+  .foot-bottom p { font-size:0.8rem; color:rgba(255,255,255,0.27); }
+  .foot-bottom span { color:var(--gold); }
+  /* ================================================================
+     WHATSAPP FLOAT
+  ================================================================ */
+  .wa-float {
+    position:fixed; bottom:30px; right:30px;
+    width:64px; height:64px; border-radius:50%;
+    background: linear-gradient(135deg,#128C7E,#25D366);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem; text-decoration:none;
+    box-shadow: 0 6px 30px rgba(37,211,102,0.55);
+    z-index:9998; transition:all 0.38s var(--ease-out);
+    animation: waFloat 2.8s ease-in-out infinite;
+  }
+  .wa-float:hover { transform:scale(1.15) rotate(-10deg); box-shadow:0 14px 44px rgba(37,211,102,0.75); animation:none; }
+  @keyframes waFloat {
+    0%,100% { box-shadow:0 6px 30px rgba(37,211,102,0.55); transform:translateY(0); }
+    50%      { box-shadow:0 6px 52px rgba(37,211,102,0.85); transform:translateY(-4px); }
+  }
+  /* ================================================================
+     RESPONSIVE
+  ================================================================ */
+  @media(max-width:600px){
+    .sec { padding:64px 16px; }
+    .hero-btns { flex-direction:column; align-items:center; }
+    .hero-btns .btn { width:100%; max-width:300px; justify-content:center; }
+    .cta-btns { flex-direction:column; align-items:center; }
+    .cta-btns .btn { width:100%; max-width:300px; justify-content:center; }
+  }
   </style>
 </head>
 <body>
-<div class="full-video-bg">
-  <video autoplay muted loop playsinline>
-    <source src="anandivid-bg.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+<!-- ═══ SCROLL PROGRESS ══════════════════════════════════ -->
+<div id="spb"></div>
+<!-- ═══ CURSOR GLOW ══════════════════════════════════════ -->
+<div class="cursor-glow" id="cursorGlow"></div>
+<!-- ═══ NAVBAR ═══════════════════════════════════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-bg"></div>
+  <div class="nav-inner">
+    <!-- Brand -->
+    <a href="index.html" class="nav-brand">
+      <img src="logo1" alt="Anandi Atta Chakki" class="nav-logo" />
+      <div>
+        <span class="brand-text-top">Anandi Atta Chakki</span>
+        <span class="brand-text-btm">Satara's Trusted Flour Mill · Since 2007</span>
+      </div>
+    </a>
+    <!-- Links -->
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="faq.html">FAQs</a></li>
+      <li><a href="contact.html" class="nav-contact-btn">Contact Us</a></li>
+    </ul>
+    <!-- Burger -->
+    <button class="burger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <!-- Background Video -->
+  <video class="hero-vid" id="heroVid" autoplay muted loop playsinline>
+    <source src="convert_this_video_in_HD_dont.mp4" type="video/mp4" />
   </video>
+  <!-- Overlays -->
+  <div class="hero-overlay"></div>
+  <div class="hero-aura"></div>
+  <!-- Floating Particles -->
+  <div id="ptcls"></div>
+  <!-- Main Content -->
+  <div class="hero-content">
+    <!-- Badge -->
+    <div class="hero-badge">
+      <span class="live-dot"></span>
+      Since 2007 &nbsp;·&nbsp; Trusted in Satara, Maharashtra
+    </div>
+    <!-- Title -->
+    <h1 class="hero-title">
+      <span class="ht-white">Fresh From</span>
+      <span class="ht-gold">The Chakki</span>
+    </h1>
+    <!-- Subtitle -->
+    <p class="hero-desc">
+      Pure stone-ground flour — wheat, jowar, besan &amp; more —<br />
+      ground fresh, right in front of you. Hygienic. Affordable. Delivered with love.
+    </p>
+    <!-- Pills -->
+    <div class="hero-pills">
+      <span class="pill">🌾 100% Natural Grains</span>
+      <span class="pill">⚙️ Stone Grinding</span>
+      <span class="pill">🏠 Family Trusted</span>
+      <span class="pill">🚚 Delivery Available</span>
+      <span class="pill">🏆 10-Year Warranty</span>
+    </div>
+    <!-- CTAs -->
+    <div class="hero-btns">
+      <a href="products.html" class="btn btn-gold">Explore Machines ›</a>
+      <a href="contact.html"  class="btn btn-ghost">📍 Visit Showroom</a>
+    </div>
+  </div>
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <div class="s-mouse"><span class="s-wheel"></span></div>
+    <p class="s-label">Scroll</p>
+  </div>
+</section>
+<!-- ═══ TICKER ════════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>🌾 Fresh Chakki Atta Ground Daily</span><span class="tick-sep">◆</span>
+    <span>⚙️ Home &amp; Commercial Flour Mills Available</span><span class="tick-sep">◆</span>
+    <span>🚚 Delivery Across Maharashtra</span><span class="tick-sep">◆</span>
+    <span>📞 Call: +91 99224 33203</span><span class="tick-sep">◆</span>
+    <span>🏆 Up to 10-Year Manufacturer Warranty</span><span class="tick-sep">◆</span>
+    <span>✅ No Preservatives — 100% Pure</span><span class="tick-sep">◆</span>
+    <!-- duplicate for seamless loop -->
+    <span>🌾 Fresh Chakki Atta Ground Daily</span><span class="tick-sep">◆</span>
+    <span>⚙️ Home &amp; Commercial Flour Mills Available</span><span class="tick-sep">◆</span>
+    <span>🚚 Delivery Across Maharashtra</span><span class="tick-sep">◆</span>
+    <span>📞 Call: +91 99224 33203</span><span class="tick-sep">◆</span>
+    <span>🏆 Up to 10-Year Manufacturer Warranty</span><span class="tick-sep">◆</span>
+    <span>✅ No Preservatives — 100% Pure</span><span class="tick-sep">◆</span>
+  </div>
 </div>
-
- <header style="background: #f9a825; color: white; padding: 20px 20px 10px 140px; position: relative; text-align: center;">
-  <!-- Logo on the left -->
-  <img src="logo1" alt="Logo" style="position: absolute; top: 20px; left: 20px; height: 100px; width: 100px; border-radius: 12px;" />
-
-  <!-- Title & tagline -->
-  <h1 style="margin: 0;">Anandi Atta Chakki</h1>
-  <p style="margin: 5px 0;">Fresh Chakki Atta in Satara — Hygienic • Affordable • Trusted since 2007</p>
-
-  <!-- Navigation -->
-  <nav style="margin-top: 10px;">
-    <a href="index.html" style="margin: 0 12px; text-decoration: none; color: white; font-weight: bold;">Home</a>
-    <a href="about.html" style="margin: 0 12px; text-decoration: none; color: white; font-weight: bold;">About</a>
-    <a href="products.html" style="margin: 0 12px; text-decoration: none; color: white; font-weight: bold;">Products</a>
-    <a href="contact.html" style="margin: 0 12px; text-decoration: none; color: white; font-weight: bold;">Contact</a>
-    <a href="faq.html" style="margin: 0 12px; text-decoration: none; color: white; font-weight: bold;">FAQs</a>
-
-  </nav>
-</header>
-
-
-
-
-  <main>
-    <section class="hero-section">
-      <img src="images/shop.jpg" alt="" class="hero-img" />
-      <h2>Welcome to Anandi Atta Chakki</h2>
-      <p>We grind fresh wheat, jowar, besan and more — right in front of your eyes!</p>
-      <a href="products.html" class="cta-button">View Our Products</a>
-    </section>
-
-    <section class="features">
-      <div class="feature-card">
-        <h3>🌾 Pure Ingredients</h3>
-        <p>We use only fresh, clean grains. No preservatives. No compromise.</p>
+<!-- ═══ STATS STRIP ═══════════════════════════════════════ -->
+<section class="stats-strip">
+  <div class="stats-row">
+    <div class="stat-box reveal">
+      <div class="stat-val" data-count="19">0</div>
+      <div class="stat-lbl">Years of<br/>Trust</div>
+    </div>
+    <div class="stat-box reveal d1">
+      <div class="stat-val" data-count="5000">0</div>
+      <div class="stat-lbl">Happy<br/>Customers</div>
+    </div>
+    <div class="stat-box reveal d2">
+      <div class="stat-val" data-count="3">0</div>
+      <div class="stat-lbl">Machine<br/>Variants</div>
+    </div>
+    <div class="stat-box reveal d3">
+      <div class="stat-val" data-count="10">0</div>
+      <div class="stat-lbl">Year<br/>Warranty</div>
+    </div>
+  </div>
+</section>
+<!-- ═══ WHY CHOOSE US ══════════════════════════════════════ -->
+<section class="sec sec-cream">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Why Choose Us</p>
+      <h2 class="sec-h2 reveal d1">Quality You Can <em>Taste</em> &amp; Trust</h2>
+      <p class="sec-p reveal d2">From grain to flour — we uphold the tradition of purity with modern hygiene standards every single day.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon-wrap">🌾</div>
+        <h3>100% Pure Grains</h3>
+        <p>We source only the cleanest, freshest grains. No fillers, no additives — just wholesome goodness ground fresh for your family.</p>
       </div>
-      <div class="feature-card">
-        <h3>⚙️ Stone Grinding</h3>
-        <p>Traditional stone chakki method ensures better taste & nutrition.</p>
+      <div class="feat-card reveal d1">
+        <div class="feat-icon-wrap">⚙️</div>
+        <h3>Traditional Stone Chakki</h3>
+        <p>Our stone-grinding method preserves nutrients, enhances flavour, and delivers flour that machine grinding simply can't match.</p>
       </div>
-      <div class="feature-card">
-        <h3>🏠 Local & Trusted</h3>
-        <p>Serving Satara families with trust and love for 10+ years.</p>
+      <div class="feat-card reveal d2">
+        <div class="feat-icon-wrap">🧼</div>
+        <h3>Hygienic Process</h3>
+        <p>Every batch is ground in a spotless, food-safe environment. We clean and inspect our machines before every single use.</p>
       </div>
-    </section>
-  </main>
-<!-- Background Video Section -->
-<div class="video-background">
-  <video autoplay muted loop playsinline>
-    <source src="anandivid.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</div>
-
-  <footer>
-    <p>&copy; 2025 Anandi Atta Chakki | Satara | Designed by Suzan M.</p>
-  </footer>
-
+      <div class="feat-card reveal d1">
+        <div class="feat-icon-wrap">💰</div>
+        <h3>Affordable Pricing</h3>
+        <p>Premium quality doesn't have to be expensive. We keep prices fair so every family in Satara can enjoy fresh atta daily.</p>
+      </div>
+      <div class="feat-card reveal d2">
+        <div class="feat-icon-wrap">🏠</div>
+        <h3>Locally Trusted Since 2007</h3>
+        <p>Thousands of Satara families trust us every single day. Our reputation is built on consistency, honesty, and heartfelt care.</p>
+      </div>
+      <div class="feat-card reveal d3">
+        <div class="feat-icon-wrap">🚚</div>
+        <h3>Machine Delivery &amp; Demo</h3>
+        <p>We deliver your flour mill machine to your doorstep and provide a complete installation demo — free of charge, always.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ PRODUCTS ══════════════════════════════════════════ -->
+<section class="sec sec-cream2">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Our Machines</p>
+      <h2 class="sec-h2 reveal d1">Flour Mills for <em>Every Need</em></h2>
+      <p class="sec-p reveal d2">From compact home models to heavy-duty commercial machines — we have the perfect chakki for you.</p>
+    </div>
+    <div class="prod-grid">
+      <!-- Classic -->
+      <a href="products.html" class="prod-card reveal">
+        <div class="prod-thumb">
+          <img src="an1.jpg" alt="Classic Flour Mill" loading="lazy" />
+          <div class="prod-shade"></div>
+          <span class="prod-badge">🏆 Most Popular</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-h3">Classic Flour Mill</h3>
+          <p class="prod-p">1–2 HP motor with stainless steel body. Perfect for home use — grinds wheat, jowar, besan &amp; more fresh daily.</p>
+          <span class="prod-link">View Machine <span class="arr">→</span></span>
+        </div>
+      </a>
+      <!-- Commercial -->
+      <a href="products.html" class="prod-card reveal d1">
+        <div class="prod-thumb">
+          <img src="com1.jpg" alt="Commercial Chakki Pro" loading="lazy" />
+          <div class="prod-shade"></div>
+          <span class="prod-badge">🏭 For Business</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-h3">Commercial Chakki Pro</h3>
+          <p class="prod-p">1–5 HP heavy-duty motor built for shops, bakeries, and commercial operations that need high-volume grinding.</p>
+          <span class="prod-link">View Machine <span class="arr">→</span></span>
+        </div>
+      </a>
+      <!-- Mini -->
+      <a href="products.html" class="prod-card reveal d2">
+        <div class="prod-thumb">
+          <img src="mini1.jpg" alt="Mini Atta Maker" loading="lazy" />
+          <div class="prod-shade"></div>
+          <span class="prod-badge">🏠 Compact</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-h3">Mini Atta Maker</h3>
+          <p class="prod-p">Sleek, compact &amp; stylish. Ideal for small families and modern kitchens with limited counter space.</p>
+          <span class="prod-link">View Machine <span class="arr">→</span></span>
+        </div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:54px;" class="reveal">
+      <a href="products.html" class="btn btn-gold" style="padding:16px 48px;font-size:1rem;">
+        View All Machines ›
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ═══ VIDEO SHOWCASE ════════════════════════════════════ -->
+<section class="video-sec">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow light reveal">See It Live</p>
+      <h2 class="sec-h2 light reveal d1">Watch Our <em style="color:var(--gold)">Showroom</em> in Action</h2>
+      <p class="sec-p light reveal d2">Get an inside look at our machines, our grinding process, and our showroom floor — all live.</p>
+    </div>
+    <div class="vid-frame reveal">
+      <div class="vid-glow"></div>
+      <video controls poster="an87.jpg">
+        <source src="convert_this_video_in_HD_dont.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+<!-- ═══ TESTIMONIALS ══════════════════════════════════════ -->
+<section class="sec sec-cream">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow reveal">Customer Love</p>
+      <h2 class="sec-h2 reveal d1">What Our <em>Customers</em> Say</h2>
+      <p class="sec-p reveal d2">Real words from real families who trust Anandi Atta Chakki every single day across Satara.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-q">"</div>
+        <p class="testi-body">The flour from Anandi is absolutely fresh. You can smell the difference! Our rotis have never tasted better. Highly recommend to all Satara families.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">
+          <div class="testi-av">S</div>
+          <div>
+            <div class="testi-name">Sunita Jadhav</div>
+            <div class="testi-loc">Satara, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d1">
+        <div class="testi-q">"</div>
+        <p class="testi-body">We bought the Commercial Chakki Pro for our bakery. Outstanding machine — works 8 hours daily without any issues. Service was prompt and professional.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">
+          <div class="testi-av">R</div>
+          <div>
+            <div class="testi-name">Raju Patil</div>
+            <div class="testi-loc">Karad, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-q">"</div>
+        <p class="testi-body">Jameer bhai's advice was excellent. He helped us pick the right machine for our home. Delivery was on time and the installation demo was very thorough.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">
+          <div class="testi-av">F</div>
+          <div>
+            <div class="testi-name">Farida Sheikh</div>
+            <div class="testi-loc">Kodoli, Satara</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ CTA BANNER ════════════════════════════════════════ -->
+<section class="cta-sec">
+  <h2 class="cta-h2 reveal">Ready for <span class="accent">Fresh Chakki Atta?</span></h2>
+  <p class="cta-p reveal d1">Visit our showroom in Kodoli, Satara — or chat with us on WhatsApp right now.<br/>Open 7 days a week, 9 AM to 9 PM.</p>
+  <div class="cta-btns reveal d2">
+    <a href="https://wa.me/919922433203" target="_blank" class="btn btn-whatsapp">💬 Chat on WhatsApp</a>
+    <a href="contact.html" class="btn btn-ghost">📍 Get Directions</a>
+  </div>
+</section>
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="foot-grid">
+    <!-- Brand -->
+    <div>
+      <div class="foot-brand-row">
+        <img src="logo1" alt="Logo" class="foot-logo" />
+        <div class="foot-name">Anandi Atta Chakki</div>
+      </div>
+      <p class="foot-about">Satara's trusted flour mill showroom since 2007. Providing hygienic, nutritious &amp; fresh chakki atta to thousands of families across Maharashtra.</p>
+      <div class="foot-social">
+        <a href="https://wa.me/919922433203" target="_blank" title="WhatsApp">💬</a>
+        <a href="tel:+919922433203" title="Call">📞</a>
+        <a href="mailto:mulla.jameer1@gmail.com" title="Email">✉️</a>
+      </div>
+    </div>
+    <!-- Quick Links -->
+    <div class="foot-col">
+      <h4 class="foot-h">Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <!-- Machines -->
+    <div class="foot-col">
+      <h4 class="foot-h">Our Machines</h4>
+      <ul>
+        <li><a href="products.html">Classic Flour Mill</a></li>
+        <li><a href="products.html">Commercial Chakki Pro</a></li>
+        <li><a href="products.html">Mini Atta Maker</a></li>
+        <li><a href="comm2.pdf" target="_blank">Classic Brochure PDF</a></li>
+        <li><a href="comm55.pdf" target="_blank">Commercial Brochure PDF</a></li>
+      </ul>
+    </div>
+    <!-- Contact -->
+    <div class="foot-col">
+      <h4 class="foot-h">Contact</h4>
+      <div class="foot-ci"><span class="ic">📍</span><span>UG 19, Bhandari Heights, Degav Phata, Rahimatpur Road, Kodoli, Satara, MH</span></div>
+      <div class="foot-ci"><span class="ic">📞</span><span>+91 99224 33203<br/>+91 91720 43202</span></div>
+      <div class="foot-ci"><span class="ic">✉️</span><span>mulla.jameer1@gmail.com</span></div>
+      <div class="foot-ci"><span class="ic">🕐</span><span>Mon–Sun: 9:00 AM – 9:00 PM</span></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2025 <span>Anandi Atta Chakki</span> | Satara, Maharashtra | Designed with ❤️ by <span>Suzan M.</span></p>
+  </div>
+</footer>
+<!-- ═══ WHATSAPP FLOAT ════════════════════════════════════ -->
+<a href="https://wa.me/919922433203" target="_blank" class="wa-float" title="Chat on WhatsApp">💬</a>
+<!-- ═══ JAVASCRIPT ══════════════════════════════════════════ -->
+<script>
+/* ── 1. Scroll Progress Bar ── */
+const spb = document.getElementById('spb');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  spb.style.width = pct + '%';
+}, { passive: true });
+/* ── 2. Navbar Scroll Effect ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+/* ── 3. Hamburger Menu ── */
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navMenu');
+burger.addEventListener('click', () => {
+  const open = navMenu.classList.toggle('open');
+  const [s1, s2, s3] = burger.querySelectorAll('span');
+  s1.style.transform = open ? 'rotate(45deg) translate(5px,5px)'  : '';
+  s2.style.opacity   = open ? '0' : '1';
+  s3.style.transform = open ? 'rotate(-45deg) translate(5px,-5px)': '';
+});
+/* ── 4. Cursor Glow ── */
+const cursorGlow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  cursorGlow.style.left = e.clientX + 'px';
+  cursorGlow.style.top  = e.clientY + 'px';
+});
+/* ── 5. Generate Floating Particles ── */
+const ptclContainer = document.getElementById('ptcls');
+for (let i = 0; i < 30; i++) {
+  const p    = document.createElement('div');
+  p.className = 'ptcl';
+  const size = Math.random() * 16 + 4;
+  p.style.cssText = `
+    width:${size}px;height:${size}px;
+    left:${Math.random()*100}%;bottom:-30px;
+    animation-duration:${Math.random()*16+9}s;
+    animation-delay:${Math.random()*14}s;
+  `;
+  ptclContainer.appendChild(p);
+}
+/* ── 6. Hero Video Parallax ── */
+const heroVid = document.getElementById('heroVid');
+window.addEventListener('scroll', () => {
+  if (window.scrollY < window.innerHeight) {
+    heroVid.style.transform = `scale(1.05) translateY(${window.scrollY * 0.25}px)`;
+  }
+}, { passive: true });
+/* ── 7. Scroll Reveal ── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+/* ── 8. Animated Counters ── */
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el     = e.target;
+    const target = parseInt(el.dataset.count, 10);
+    const isK    = target >= 1000;
+    const dur    = 2000;
+    const step   = 16;
+    const steps  = dur / step;
+    const inc    = target / steps;
+    let cur      = 0;
+    const fmt = v => isK
+      ? (v >= 1000 ? (v/1000).toFixed(1) + 'K+' : Math.floor(v) + '+')
+      : Math.floor(v) + '+';
+    el.textContent = fmt(0);
+    const t = setInterval(() => {
+      cur += inc;
+      if (cur >= target) { el.textContent = fmt(target); clearInterval(t); }
+      else { el.textContent = fmt(cur); }
+    }, step);
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-val[data-count]').forEach(el => countObs.observe(el));
+</script>
 </body>
-<!-- Sticky WhatsApp Chat Button -->
-<a href="https://wa.me/919922433203" target="_blank" title="Chat with us on WhatsApp" style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 999;
-  background-color: #25D366;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 50%;
-  font-size: 24px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-decoration: none;">
-  💬
-</a>
-
 </html>
